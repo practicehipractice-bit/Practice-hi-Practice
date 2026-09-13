@@ -1,0 +1,1 @@
+YOUR OWN PRACTICE SET: 20-question demo, Mobile+Gmail one-demo check, subscription plans. Real anti-bypass security requires server/database, OTP verification and payment gateway; browser-only localStorage can be cleared by the user. Replace contact details with your real details.

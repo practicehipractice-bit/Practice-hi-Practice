@@ -1,0 +1,57 @@
+<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MCQ Practice - Practice Hi Practice</title><style>body{font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#f5f7fb;margin:0;color:#172033}.top{background:#173b78;color:#fff;text-align:center;padding:24px}.wrap{max-width:900px;margin:auto;padding:24px 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}.card{background:#fff;border-radius:18px;padding:25px;box-shadow:0 6px 20px #0001}.card h2{color:#173b78}.btn{display:block;text-align:center;text-decoration:none;background:#1769e0;color:#fff;padding:14px;border-radius:10px;font-weight:700;margin-top:15px}.back{display:inline-block;color:#173b78;text-decoration:none;margin-bottom:18px}</style></head><body>
+
+<div class="horizon-computer-ad" style="margin:16px 0;padding:16px 20px;border-radius:12px;border:2px solid #2563eb;background:linear-gradient(135deg,#eff6ff,#ffffff);">
+  <div style="display:grid;grid-template-columns:1.25fr .9fr;gap:20px;align-items:center;text-align:left;">
+    <div>
+      <div style="font-size:24px;font-weight:800;color:#1756a6;">💻 Horizon Computer</div>
+      <div style="font-size:17px;font-weight:700;margin-top:4px;">Computer Education &amp; Practical Training</div>
+      <div style="font-size:14px;line-height:1.6;margin-top:7px;">Computer सीखने, Digital Skills और Practical Training के लिए आपका अपना प्रशिक्षण केंद्र।</div>
+      <div style="font-size:13px;margin-top:9px;font-weight:700;">DCA • Computer Basics • MS Office • Typing • Internet &amp; Digital Skills</div>
+    </div>
+    <div style="border-left:2px solid #d5e3f7;padding-left:20px;font-size:13px;line-height:1.8;">
+      <div>📍 <strong>NOKHA MILL, ITARHI ROAD, BUXAR</strong></div>
+      <div>📧 <strong>practicehipractice@gmail.com</strong></div>
+      <div>📱 <strong>7277446690</strong></div>
+      <div style="margin-top:7px;font-weight:700;">🎯 अपना Custom MCQ Set बनवाएँ</div>
+      <div>Excel Format में अपना Set बनवाने के लिए ईमेल करें।</div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #d5e3f7;margin-top:12px;padding:10px 12px;text-align:center;font-size:13px;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;align-items:center;border-radius:9px;background:linear-gradient(90deg,#dbeafe,#fef3c7,#dcfce7);">
+  <div style="text-align:left;font-weight:800;color:#1d4ed8;">Practice Hi Practice — अभ्यास ही सफलता की कुंजी है।</div>
+  <div style="text-align:center;font-weight:800;color:#7c3aed;">A Learning Initiative by Horizon Computer</div>
+  <div style="text-align:right;font-weight:800;color:#15803d;">Practice Makes Perfect<br><span style="font-weight:700;">अभ्यास परिपूर्ण बनाता है।</span></div>
+</div>
+  <style>@media(max-width:700px){.horizon-computer-ad>div:first-child{grid-template-columns:1fr!important}.horizon-computer-ad>div:first-child>div:nth-child(2){border-left:0!important;border-top:2px solid #d5e3f7;padding-left:0!important;padding-top:12px}}</style>
+</div>
+<header class="top"><h1>MCQ Practice</h1><p>अपनी Practice का तरीका चुनें</p></header><main class="wrap"><a class="back" href="index.html">← Home पर जाएँ</a><div class="grid"><div class="card"><h2>📚 Pre-uploaded Practice Set</h2><p>Practice Hi Practice पर उपलब्ध MCQ Sets से अभ्यास करें।</p><div id="setList"><div style="font-weight:700;color:#555">MCQ Sets लोड हो रहे हैं...</div></div></div><div class="card"><h2>📄 Your Own Practice Set</h2><p>अपनी Excel file चुनें और बिना सार्वजनिक upload के अपने प्रश्नों की Practice करें।</p><a class="btn" href="my-own-practice.html">Excel File चुनें</a></div></div><script>
+(function(){
+  const list=document.getElementById('setList');
+  const SETLIST_ID='1NjiUhys2Mfeq4eqwysS9mwc1uLCtW__U';
+  function cell(r,n){return r&&r.c&&r.c[n]&&r.c[n].v!=null?String(r.c[n].v).trim():'';}
+  window.phpSetListCallback=function(data){
+    try{
+      const rs=(data&&data.table&&data.table.rows)||[];
+      const items=rs.map(r=>({no:parseInt(cell(r,0),10),topic:cell(r,1),file:cell(r,2),url:cell(r,3)}))
+        .filter(x=>x.no>=1&&x.no<=50).sort((a,b)=>a.no-b.no);
+      list.innerHTML='';
+      if(!items.length){list.innerHTML='<div style="font-weight:700;color:#b91c1c">SETLIST में कोई Set नहीं मिला।</div>';return;}
+      items.forEach(x=>{
+        const a=document.createElement('a'); a.className='btn';
+        a.href='sets/set'+String(x.no).padStart(2,'0')+'.html';
+        a.textContent='Set '+x.no+(x.topic?' — '+x.topic:'');
+        list.appendChild(a);
+      });
+    }catch(e){list.innerHTML='<div style="font-weight:700;color:#b91c1c">SETLIST लोड नहीं हो सका।</div>';}
+  };
+  const sc=document.createElement('script');
+  sc.src='https://docs.google.com/spreadsheets/d/'+SETLIST_ID+'/gviz/tq?pub=1&gid=0&sheet=Sheet1&tq='+encodeURIComponent('select * order by A')+'&tqx='+encodeURIComponent('responseHandler:phpSetListCallback');
+  sc.onerror=function(){list.innerHTML='<div style="font-weight:700;color:#b91c1c">SETLIST access नहीं हो सका।</div>';};
+  document.head.appendChild(sc);
+})();
+</script>
+</main>
+<div style="text-align:center;color:#7c3aed;">A Learning Initiative by Horizon Computer</div>
+  <div style="text-align:right;color:#15803d;">Practice Makes Perfect</div>
+</div>
+
+</body></html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Practice Hi Practice - Test Mode</title>
+<style>
+body{margin:0;background:#f4f7fb;font-family:Arial,"Noto Sans Devanagari",sans-serif;color:#18212b}
+header{background:#173b70;color:white;text-align:center;padding:18px}main{max-width:850px;margin:22px auto;padding:0 14px}
+.card{background:white;border-radius:14px;padding:20px;box-shadow:0 3px 14px #0001;margin-bottom:18px}
+label{font-weight:600}input{padding:9px;border:1px solid #bbb;border-radius:8px;width:90px;font-size:16px}
+button{padding:11px 18px;border:0;border-radius:9px;background:#1769aa;color:white;font-size:16px;cursor:pointer}
+.timer{font-size:16px;font-weight:bold;text-align:center;background:#fff7d6;border:2px solid #d7a500;border-radius:12px;padding:12px}
+.notice{padding:12px;background:#eef4fb;border-radius:8px;margin:12px 0}.q{font-size:20px;margin:18px 0}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;background:#f5f7f9;color:#18212b;border:1px solid #ccd5df}
+.lock{background:#fde0de;border-left:5px solid #b3261e;padding:12px;border-radius:8px}
+</style></head>
+<body>
+
+<div class="horizon-computer-ad" style="margin:16px 0;padding:16px 20px;border-radius:12px;border:2px solid #2563eb;background:linear-gradient(135deg,#eff6ff,#ffffff);">
+  <div style="display:grid;grid-template-columns:1.25fr .9fr;gap:20px;align-items:center;text-align:left;">
+    <div>
+      <div style="font-size:24px;font-weight:800;color:#1756a6;">💻 Horizon Computer</div>
+      <div style="font-size:17px;font-weight:700;margin-top:4px;">Computer Education &amp; Practical Training</div>
+      <div style="font-size:14px;line-height:1.6;margin-top:7px;">Computer सीखने, Digital Skills और Practical Training के लिए आपका अपना प्रशिक्षण केंद्र।</div>
+      <div style="font-size:13px;margin-top:9px;font-weight:700;">DCA • Computer Basics • MS Office • Typing • Internet &amp; Digital Skills</div>
+    </div>
+    <div style="border-left:2px solid #d5e3f7;padding-left:20px;font-size:13px;line-height:1.8;">
+      <div>📍 <strong>NOKHA MILL, ITARHI ROAD, BUXAR</strong></div>
+      <div>📧 <strong>practicehipractice@gmail.com</strong></div>
+      <div>📱 <strong>7277446690</strong></div>
+      <div style="margin-top:7px;font-weight:700;">🎯 अपना Custom MCQ Set बनवाएँ</div>
+      <div>Excel Format में अपना Set बनवाने के लिए ईमेल करें।</div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #d5e3f7;margin-top:12px;padding:10px 12px;text-align:center;font-size:13px;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;align-items:center;border-radius:9px;background:linear-gradient(90deg,#dbeafe,#fef3c7,#dcfce7);">
+  <div style="text-align:left;font-weight:800;color:#1d4ed8;">Practice Hi Practice — अभ्यास ही सफलता की कुंजी है।</div>
+  <div style="text-align:center;font-weight:800;color:#7c3aed;">A Learning Initiative by Horizon Computer</div>
+  <div style="text-align:right;font-weight:800;color:#15803d;">Practice Makes Perfect<br><span style="font-weight:700;">अभ्यास परिपूर्ण बनाता है।</span></div>
+</div>
+  <style>@media(max-width:700px){.horizon-computer-ad>div:first-child{grid-template-columns:1fr!important}.horizon-computer-ad>div:first-child>div:nth-child(2){border-left:0!important;border-top:2px solid #d5e3f7;padding-left:0!important;padding-top:12px}}</style>
+</div>
+<header><h1>Practice Hi Practice</h1><p>Test Mode — Exam Environment</p></header>
+<main>
+<div id="setup" class="card"><h2>Test शुरू करें</h2>
+<div class="notice">Timer केवल Test Mode के लिए है। Back/Next करने पर timer reset नहीं होगा।</div>
+<p><label><input type="radio" name="tt" value="question" checked> प्रति Question Timer</label>
+&nbsp;&nbsp;<label><input type="radio" name="tt" value="set"> प्रति Set Timer</label></p>
+<p id="qb"><label>प्रति Question (सेकंड): <input id="qs" type="number" min="1" value="60"></label></p>
+<p id="sb" style="display:none"><label>प्रति Set (मिनट): <input id="sm" type="number" min="1" value="60"></label></p>
+<p><label>कुल Questions: <input id="n" type="number" min="1" value="60"></label></p>
+<p id="info"></p><button onclick="begin()">Test Start</button></div>
+<div id="run" class="card" style="display:none"><div class="timer">शेष समय: <span id="clock">00:00</span></div>
+<div class="q">यह वास्तविक Excel-driven Test Mode में इसी timer logic के साथ चलेगा।</div>
+<div id="lock" style="display:none" class="lock"><b>समय पूरा हो गया।</b> सभी Questions lock हैं।</div>
+</div></main>
+<script>
+let rem=0,intv=null,locked=false;
+const $=id=>document.getElementById(id);
+function fmt(x){x=Math.max(0,x);let h=Math.floor(x/3600),m=Math.floor(x%3600/60),s=x%60;return h?String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0"):String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
+function info(){let t=document.querySelector('input[name=tt]:checked').value,n=+$("n").value||1,v=t==="question"?+$("qs").value||60:+$("sm").value||60;let sec=t==="question"?n*v:v*60;$("info").textContent="कुल समय: "+fmt(sec)+" ("+n+" प्रश्न)"}
+document.querySelectorAll('input[name=tt]').forEach(r=>r.onchange=()=>{let q=document.querySelector('input[name=tt]:checked').value==="question";$("qb").style.display=q?"block":"none";$("sb").style.display=q?"none":"block";info()});
+["qs","sm","n"].forEach(id=>$(id).oninput=info);info();
+function begin(){let t=document.querySelector('input[name=tt]:checked').value,n=+$("n").value||1,v=t==="question"?+$("qs").value||60:+$("sm").value||60;rem=t==="question"?n*v:v*60;$("setup").style.display="none";$("run").style.display="block";tick();intv=setInterval(tick,1000)}
+function tick(){if(locked)return;$("clock").textContent=fmt(rem);if(rem<=0){locked=true;clearInterval(intv);$("lock").style.display="block";return}rem--}
+</script>
+<div style="text-align:center;color:#7c3aed;">A Learning Initiative by Horizon Computer</div>
+  <div style="text-align:right;color:#15803d;">Practice Makes Perfect</div>
+</div>
+
+</body></html>

@@ -1,0 +1,243 @@
+<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Practice Hi Practice - Set 25</title><style>body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#172033}header{background:#1756a6;color:#fff;text-align:center;padding:20px}header h1{margin:0 0 6px}.wrap{max-width:1050px;margin:auto;padding:18px}.card{background:#fff;padding:20px;border-radius:14px;box-shadow:0 3px 14px #0001;margin-bottom:16px}a{text-decoration:none;color:inherit}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.set{border:1px solid #dbe4ef;padding:18px;border-radius:12px;background:#fff}.set:hover{box-shadow:0 4px 14px #0002}.btn{display:inline-block;background:#1756a6;color:#fff;padding:10px 16px;border-radius:8px;margin:4px}.muted{color:#667085}.modes,nav{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}button{border:0;border-radius:8px;padding:10px 15px;cursor:pointer}.mode{background:#e5ebf4}.active,nav button,.submit{background:#1756a6;color:white}.skip{background:#777;color:white}.q{font-size:22px;font-weight:bold;line-height:1.5}.opt{display:block;width:100%;text-align:left;background:#f7f9fc;border:2px solid #d5deea;margin:9px 0;font-size:17px}.correct{background:#c9f5d0!important;border-color:#22984b!important}.wrong{background:#ffd0d0!important;border-color:#d33!important}.selected{background:#fff0a0!important;border-color:#c59d00!important}.desc{margin-top:15px;padding:15px;background:#eef6ff;border-left:5px solid #2878d7;border-radius:7px;line-height:1.6}.desc h3{margin:0 0 7px;color:#1756a6}.msg{font-weight:bold;min-height:24px}.num{text-align:center;font-weight:bold}.pal{display:flex;gap:5px;flex-wrap:wrap}.pal button{width:38px;padding:8px;background:#e7ecf3}.pal .cur{background:#1756a6!important;color:white!important}.pal .study-correct{background:#22984b!important;color:white!important}.pal .study-wrong{background:#d33!important;color:white!important}.pal .study-skip{background:#222!important;color:white!important}footer{text-align:center;padding:25px;background:#172033;color:#fff;margin-top:30px}.timer-running{align-items:center;justify-content:space-between;gap:20px}.timer-left{min-width:180px}.timer-result{display:block;flex:1;font-size:16px;font-weight:700;line-height:1.45;text-align:right}.timer-result b{font-weight:800}@media(max-width:700px){.timer-running{flex-direction:column;align-items:stretch}.timer-result{text-align:left}}</style><style id="php-timer-style">
+#php-test-timer-wrap{display:none;position:sticky;top:0;z-index:50;background:#fff;border:2px solid #d7a500;border-radius:12px;padding:10px 14px;margin:10px 0;text-align:center;font-weight:700;box-shadow:0 3px 10px #0002}#php-test-timer{font-size:28px;letter-spacing:1px}.php-timer-label{font-size:14px;margin-right:8px}</style>
+<script src="php-test-timer.js"></script>
+<style id="test-result-style">.test-result{background:transparent;border:0;padding:0;margin:0;font-weight:700;line-height:1.45}.pal .test-correct,.pal .test-answered{background:#22984b!important;color:#fff!important}.pal .test-wrong{background:#d33!important;color:#fff!important}.pal .test-skip{background:#222!important;color:#fff!important}.pal .test-unsolved{background:#9aa4b2!important;color:#fff!important}</style><style id="responsive-design-fix">
+html{font-size:16px}*{box-sizing:border-box}img{max-width:100%;height:auto}body{overflow-x:hidden}.wrap{width:100%;max-width:1050px;margin:0 auto;padding:18px}.card{width:100%}button,a.btn{min-height:42px}.grid{width:100%}.opt{box-sizing:border-box;white-space:normal;overflow-wrap:anywhere}.q{overflow-wrap:anywhere}.pal{max-width:100%;overflow-x:auto;padding-bottom:4px}.pal button{flex:0 0 38px}.timer-row{width:100%}.timer-row label{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.timer-row input{max-width:100%}
+@media (max-width:700px){
+ body{font-size:15px}.wrap{padding:10px}.card{padding:14px;border-radius:10px}.card h2{font-size:21px;line-height:1.25}header{padding:14px 10px}header h1{font-size:26px;line-height:1.15}.q{font-size:19px;line-height:1.45}.opt{font-size:16px;padding:12px 11px;margin:8px 0;min-height:48px}.modes,nav{gap:6px}.modes button,nav button,.btn{flex:1 1 auto;padding:11px 10px;font-size:14px}.grid{grid-template-columns:1fr 1fr!important;gap:8px}.set{padding:12px}.set h3{font-size:16px}.timer-running{padding:9px 10px!important;margin:7px 0!important}.timer-running .time{font-size:16px;}.timer-left{min-width:0!important;width:100%}.timer-result{font-size:16px;}.timer-row{flex-direction:column;align-items:stretch}.timer-row label{width:100%;font-size:16px;}.timer-row input{width:90px!important}.desc{padding:11px}.pal button{width:36px;min-width:36px;padding:8px 4px}
+}
+@media (max-width:420px){.grid{grid-template-columns:1fr!important}.q{font-size:18px}.card{padding:11px}.modes button,nav button{font-size:13px}.timer-title{font-size:16px;}.timer-running .time{font-size:16px;}}
+</style><style id="php-selected-style">.php-selected-wrap{margin:10px 0}.php-selected-btn{border:1px solid #f0b400;background:#fff8d9;color:#7a5600;border-radius:8px;padding:8px 12px;font-weight:800;cursor:pointer}.php-selected-btn.selected{background:#f0b400;color:#fff}</style></head><body>
+
+<div class="horizon-computer-ad" style="margin:16px 0;padding:16px 20px;border-radius:12px;border:2px solid #2563eb;background:linear-gradient(135deg,#eff6ff,#ffffff);">
+  <div style="display:grid;grid-template-columns:1.25fr .9fr;gap:20px;align-items:center;text-align:left;">
+    <div>
+      <div style="font-size:24px;font-weight:800;color:#1756a6;">💻 Horizon Computer</div>
+      <div style="font-size:17px;font-weight:700;margin-top:4px;">Computer Education &amp; Practical Training</div>
+      <div style="font-size:14px;line-height:1.6;margin-top:7px;">Computer सीखने, Digital Skills और Practical Training के लिए आपका अपना प्रशिक्षण केंद्र।</div>
+      <div style="font-size:13px;margin-top:9px;font-weight:700;">DCA • Computer Basics • MS Office • Typing • Internet &amp; Digital Skills</div>
+    </div>
+    <div style="border-left:2px solid #d5e3f7;padding-left:20px;font-size:13px;line-height:1.8;">
+      <div>📍 <strong>NOKHA MILL, ITARHI ROAD, BUXAR</strong></div>
+      <div>📧 <strong>practicehipractice@gmail.com</strong></div>
+      <div>📱 <strong>7277446690</strong></div>
+      <div style="margin-top:7px;font-weight:700;">🎯 अपना Custom MCQ Set बनवाएँ</div>
+      <div>Excel Format में अपना Set बनवाने के लिए ईमेल करें।</div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #d5e3f7;margin-top:12px;padding:10px 12px;text-align:center;font-size:13px;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;align-items:center;border-radius:9px;background:linear-gradient(90deg,#dbeafe,#fef3c7,#dcfce7);">
+  <div style="text-align:left;font-weight:800;color:#1d4ed8;">Practice Hi Practice — अभ्यास ही सफलता की कुंजी है।</div>
+  <div style="text-align:center;font-weight:800;color:#7c3aed;">A Learning Initiative by Horizon Computer</div>
+  <div style="text-align:right;font-weight:800;color:#15803d;">Practice Makes Perfect<br><span style="font-weight:700;">अभ्यास परिपूर्ण बनाता है।</span></div>
+</div>
+  <style>@media(max-width:700px){.horizon-computer-ad>div:first-child{grid-template-columns:1fr!important}.horizon-computer-ad>div:first-child>div:nth-child(2){border-left:0!important;border-top:2px solid #d5e3f7;padding-left:0!important;padding-top:12px}}</style>
+</div>
+<header><h1>Practice Hi Practice</h1><div>अभ्यास ही सफलता की कुंजी है।</div></header><div class="wrap"><div class="card"><a class="btn" href="../index.html">← Home</a><a class="btn" href="../selected-questions.html">⭐ Selected Questions</a><h2>MCQ Practice – Set 25</h2><div class="modes"><button class="mode active" onclick="setMode('study',this)">Study Mode</button><button class="mode" onclick="setMode('test',this)">Test Mode</button><button class="mode" onclick="setMode('one',this)">One-liner</button></div></div><div class="card"><div id="q" class="q"></div><div id="opts"></div><div id="msg" class="msg"></div><div id="desc"></div><nav><button onclick="prev()">← पिछला</button><button class="skip" onclick="skip()">Skip</button><button onclick="next()">अगला →</button></nav><div id="num" class="num"></div><div id="pal" class="pal"></div></div></div><script>
+let rows=[];
+function freshState(){return {selected:null,checked:false,one:false,palStatus:null};}let i=0,mode='study',sel=null,states=rows.map(()=>({selected:null,checked:false,one:false,palStatus:null}));
+function st(){return states[i]} function ans(r){return r.ans} function setMode(m,b){mode=m;document.querySelectorAll('.mode').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()}
+
+function updateTestStats(){
+  let e=document.getElementById('test-result');
+  if(!e)return;
+  if(mode!=='test'){e.style.display='none';return;}
+  e.style.display='block';
+  let ss=(typeof states!=='undefined')?states:rows.map((_,n)=>getState(n));
+  let correct=0,wrong=0,skip=0,answered=0;
+  ss.forEach(s=>{if(s.palStatus==='correct'){correct++;answered++;}else if(s.palStatus==='wrong'){wrong++;answered++;}else if(s.palStatus==='skip'){skip++;}else if(s.selected){answered++;}});
+  let totalObtained=correct;
+  let totalMinus=wrong*0.25;
+  let net=totalObtained-totalMinus;
+  e.innerHTML='<b>Total Marks Obtained: '+totalObtained.toFixed(2)+'</b> &nbsp; | &nbsp; <b>Total Marks Minus: '+totalMinus.toFixed(2)+'</b> &nbsp; | &nbsp; <b>Nett Obtained Marks: '+net.toFixed(2)+'</b><br>Correct: '+correct+' &nbsp; | &nbsp; Wrong: '+wrong+' &nbsp; | &nbsp; Solved: '+answered+' &nbsp; | &nbsp; Skipped: '+skip+' &nbsp; | &nbsp; Not Solved: '+Math.max(0,ss.length-answered-skip);
+}
+
+const PHPSEL_KEY='PHP_SELECTED_QUESTIONS_V1';
+function PHPSEL_load(){try{return JSON.parse(localStorage.getItem(PHPSEL_KEY)||'[]')}catch(e){return[]}}
+function PHPSEL_save(a){localStorage.setItem(PHPSEL_KEY,JSON.stringify(a))}
+function PHPSEL_id(r){return String(r.q||'').trim()}
+function PHPSEL_toggle(){if(!rows.length)return;let r=rows[i],a=PHPSEL_load(),id=PHPSEL_id(r),n=a.findIndex(x=>PHPSEL_id(x)===id);if(n>=0){a.splice(n,1)}else{a.push({q:r.q,a:r.a,b:r.b,c:r.c,d:r.d,ans:r.ans,subject:r.subject||'',desc:r.desc||'',setNo:(window.PHP_SET_CONFIG&&window.PHP_SET_CONFIG.setNo)||'',topicName:(window.PHP_SET_CONFIG&&window.PHP_SET_CONFIG.topicName)||''})}PHPSEL_save(a);PHPSEL_refresh()}
+function PHPSEL_refresh(){let b=document.getElementById('phpSelectedBtn');if(!b||!rows.length)return;let id=PHPSEL_id(rows[i]),yes=PHPSEL_load().some(x=>PHPSEL_id(x)===id);b.textContent=yes?'⭐ Selected है — हटाने के लिए क्लिक करें':'⭐ इस प्रश्न को Selected करें';b.classList.toggle('selected',yes)}
+function render(){let r=rows[i],s=st();q.textContent=(i+1)+'. '+r.q;document.getElementById('php-selected-action')?.remove();let sa=document.createElement('div');sa.id='php-selected-action';sa.className='php-selected-wrap';sa.innerHTML='<button class="php-selected-btn" id="phpSelectedBtn" onclick="PHPSEL_toggle()">⭐ इस प्रश्न को Selected करें</button>';q.parentNode.insertBefore(sa,q.nextSibling);PHPSEL_refresh();desc.innerHTML=r.desc?'<div class="desc"><h3>📖 Description / व्याख्या</h3>'+r.desc+'</div>':'';opts.innerHTML='';msg.textContent='';
+if(mode==='one'){if(s.one){let o={A:r.a,B:r.b,C:r.c,D:r.d};opts.innerHTML='<div class="desc"><h3>उत्तर: '+o[ans(r)]+'</h3></div>'}else{let b=document.createElement('button');b.className='opt';b.textContent='उत्तर देखने के लिए क्लिक करें';b.onclick=()=>{s.one=true;render()};opts.appendChild(b)}}else{[['A',r.a],['B',r.b],['C',r.c],['D',r.d]].forEach(([x,t])=>{let b=document.createElement('button');b.className='opt';b.textContent=x+') '+t;if(s.selected===x)b.classList.add(s.checked?(x===ans(r)?'correct':'wrong'):'selected');if(s.checked&&x===ans(r))b.classList.add('correct');b.onclick=()=>choose(x);if(s.checked)b.disabled=true;opts.appendChild(b)});if(mode==='test'){let b=document.createElement('button');b.className='submit';b.textContent='Submit';b.onclick=submit;if(s.checked)b.disabled=true;opts.appendChild(b)}}
+if(s.checked&&mode!=='one')msg.textContent=s.selected===ans(r)?'✓ सही उत्तर':'✗ गलत उत्तर';num.textContent='प्रश्न '+(i+1)+' / 100';pal.innerHTML='';rows.forEach((_,n)=>{let b=document.createElement('button');b.textContent=n+1;if(mode==='study'){let p=states[n].palStatus;if(p==='correct')b.classList.add('study-correct');else if(p==='wrong')b.classList.add('study-wrong');else if(p==='skip')b.classList.add('study-skip')}if(n===i)b.classList.add('cur');b.onclick=()=>{i=n;render()};pal.appendChild(b)})}
+function choose(x){let s=st();if(s.checked)return;if(mode==='study'){s.selected=x;s.checked=true;s.palStatus=x===ans(rows[i])?'correct':'wrong';render()}else{s.selected=x;sel=x;render()}} function submit(){let s=st();if(!s.selected){msg.textContent='पहले उत्तर चुनें।';return}s.checked=true;s.palStatus=null;sel=null;render()} function skip(){let s=st();if(mode==='study'&&!s.checked)s.palStatus='skip';if(i<99)i++;render()} function next(){if(i<99)i++;render()} function prev(){if(i>0)i--;render()} render();</script>
+<div id="php-timer-setup" style="display:none;background:#fff7d6;border:1px solid #e0bd45;border-radius:12px;padding:14px;margin:12px 0">
+  <div style="font-weight:700;margin-bottom:10px">Test Mode Timer</div>
+  <label style="margin-right:16px"><input type="radio" name="phpTimerType" value="question" checked> प्रति Question Timer</label>
+  <label><input type="radio" name="phpTimerType" value="set"> प्रति Set Timer</label>
+  <div style="margin-top:12px">
+    <label id="phpQTimeLabel">प्रति Question समय (सेकंड):
+      <input id="phpQSeconds" type="number" min="1" value="60" style="width:90px;padding:7px">
+    </label>
+    <label id="phpSetTimeLabel" style="display:none">प्रति Set समय (मिनट):
+      <input id="phpSetMinutes" type="number" min="1" value="60" style="width:90px;padding:7px">
+    </label>
+  </div>
+  <div id="phpTotalTimeInfo" style="margin-top:9px;font-weight:600"></div>
+</div>
+<div id="php-test-timer-wrap" class="timer-running"><div class="timer-left"><span class="php-timer-label">शेष समय:</span><span id="php-test-timer">00:00</span></div><div id="test-result" class="timer-result"></div></div>
+
+<script id="php-real-timer">
+(function(){
+  function qs(s){return document.querySelector(s)}
+  function testActive(){
+    var nodes=document.querySelectorAll('input,button,select');
+    for(var i=0;i<nodes.length;i++){
+      var v=(nodes[i].value||nodes[i].textContent||"").toLowerCase();
+      if((v==="test"||v.includes("test mode")) && (nodes[i].checked || nodes[i].classList.contains("active") || nodes[i].getAttribute("aria-selected")==="true")) return true;
+    }
+    var body=document.body.innerText.toLowerCase();
+    return body.includes("test mode") && !body.includes("study mode active");
+  }
+  function getCount(){
+    if(window.questions && Array.isArray(window.questions)) return window.questions.length;
+    if(window.questionData && Array.isArray(window.questionData)) return window.questionData.length;
+    var n=document.querySelectorAll('[data-question], .question-card, .question').length;
+    return n || 60;
+  }
+  function updateInfo(){
+    var type=qs('input[name="phpTimerType"]:checked');
+    var info=qs("#phpTotalTimeInfo");
+    if(!type||!info)return;
+    var count=getCount(), val=type.value==="question"?(Number(qs("#phpQSeconds").value)||60):(Number(qs("#phpSetMinutes").value)||60);
+    var sec=type.value==="question"?count*val:val*60;
+    var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;
+    var shown=(h?String(h).padStart(2,"0")+":":"")+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    info.textContent="कुल समय: "+shown+" ("+count+" प्रश्न)";
+  }
+  window.initPHPRealTimer=function(){
+    var setup=qs("#php-timer-setup"), wrap=qs("#php-test-timer-wrap");
+    if(!setup||!wrap)return;
+    setup.style.display="block"; wrap.style.display="block";
+    document.querySelectorAll('input[name="phpTimerType"]').forEach(function(r){
+      r.onchange=function(){
+        qs("#phpQTimeLabel").style.display=r.value==="question"?"inline":"none";
+        qs("#phpSetTimeLabel").style.display=r.value==="set"?"inline":"none";
+        updateInfo();
+      };
+    });
+    ["phpQSeconds","phpSetMinutes"].forEach(function(id){var e=qs("#"+id);if(e)e.oninput=updateInfo});
+    updateInfo();
+  };
+  window.startPHPRealTimer=function(){
+    var r=qs('input[name="phpTimerType"]:checked');
+    if(!r)return;
+    var value=r.value==="question"?qs("#phpQSeconds").value:qs("#phpSetMinutes").value;
+    PHPTestTimer.start(r.value,value,getCount(),function(){
+      // Lock all answer controls immediately.
+      document.querySelectorAll("button,input,select,textarea").forEach(function(el){
+        if(el.id==="phpQSeconds"||el.id==="phpSetMinutes") return;
+        el.disabled=true;
+      });
+      var msg=document.createElement("div");
+      msg.style.cssText="position:fixed;inset:0;background:#0008;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px";
+      msg.innerHTML='<div style="background:#fff;border-radius:14px;padding:25px;max-width:420px;text-align:center"><h2>समय पूरा हो गया</h2><p>सभी Questions lock कर दिए गए हैं।</p><button onclick="this.closest(\'div\').parentElement.remove()">ठीक है</button></div>';
+      document.body.appendChild(msg);
+    });
+  };
+  // Try to expose the controls whenever a Test button is clicked.
+  document.addEventListener("click",function(e){
+    var t=e.target.closest("button,a,[role=button]");
+    if(!t)return;
+    var label=(t.textContent||"").trim().toLowerCase();
+    if(label==="test" || label.includes("test mode")){
+      setTimeout(function(){
+        initPHPRealTimer();
+        startPHPRealTimer();
+      },50);
+    }
+  });
+})();
+</script>
+
+<section class="comment-box" id="comments">
+  <h2>💬 कमेंट / सुझाव</h2>
+  <p class="comment-note">अपने विचार, सुझाव या प्रश्न यहाँ लिखें।</p>
+  <form class="comment-form" onsubmit="saveSiteComment(event)">
+    <input id="commentName" type="text" placeholder="आपका नाम" maxlength="50" required>
+    <textarea id="commentText" placeholder="अपना कमेंट या सुझाव लिखें..." maxlength="500" required></textarea>
+    <button type="submit">कमेंट भेजें</button>
+  </form>
+  <div id="commentList" class="comment-list"></div>
+</section>
+<style>
+.comment-box{background:#fff;border:1px solid #e3e9f3;border-radius:16px;padding:20px;margin:24px 0;box-shadow:0 5px 18px #0000000b}
+.comment-box h2{margin:0 0 6px;color:#173b78;text-align:center}.comment-note{text-align:center;color:#657086;margin:0 0 15px}
+.comment-form{max-width:760px;margin:auto;display:grid;gap:10px}.comment-form input,.comment-form textarea{width:100%;padding:12px;border:1px solid #ccd6e5;border-radius:9px;font:inherit}.comment-form textarea{min-height:100px;resize:vertical}.comment-form button{background:#1769e0;color:#fff;border:0;border-radius:9px;padding:12px;font-weight:700;cursor:pointer}.comment-list{max-width:760px;margin:18px auto 0;display:grid;gap:10px}.comment-item{background:#f5f7fb;border-left:4px solid #1769e0;border-radius:9px;padding:11px 13px}.comment-item b{color:#173b78}.comment-item small{color:#657086;margin-left:8px}.comment-item p{margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:600px){.comment-box{padding:13px;border-radius:11px}.comment-form button{min-height:44px}.comment-box h2{font-size:21px}}
+</style>
+<script>
+(function(){
+ const KEY='php_site_comments_v1';
+ function esc(s){return s.replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]})}
+ window.renderSiteComments=function(){
+  const el=document.getElementById('commentList'); if(!el)return;
+  let arr=[]; try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+  el.innerHTML=arr.length?arr.slice().reverse().map(x=>'<div class="comment-item"><b>'+esc(x.name)+'</b><small>'+esc(x.date)+'</small><p>'+esc(x.text)+'</p></div>').join(''):'<p class="small" style="text-align:center">अभी कोई कमेंट नहीं है। पहला कमेंट आप करें।</p>';
+ };
+ window.saveSiteComment=function(e){
+  e.preventDefault(); const n=document.getElementById('commentName'),t=document.getElementById('commentText');
+  let arr=[]; try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(x){}
+  arr.push({name:n.value.trim(),text:t.value.trim(),date:new Date().toLocaleDateString('hi-IN')});
+  localStorage.setItem(KEY,JSON.stringify(arr.slice(-50))); n.value='';t.value='';renderSiteComments();
+ };
+ document.addEventListener('DOMContentLoaded',renderSiteComments);
+})();
+</script>
+
+
+<div style="text-align:center;color:#7c3aed;">A Learning Initiative by Horizon Computer</div>
+  <div style="text-align:right;color:#15803d;">Practice Makes Perfect</div>
+</div>
+
+<div id="googleLoadStatus" style="margin:10px 0;font-weight:800;">SETLIST से Set 25 की जानकारी लोड हो रही है...</div><script>
+(function(){
+const SET_NO=25;
+const SETLIST_ID='1NjiUhys2Mfeq4eqwysS9mwc1uLCtW__U';
+const status=document.getElementById('googleLoadStatus');
+let fileName='', googleSheetURL='', topicName='';
+function cell(r,n){return r&&r.c&&r.c[n]&&r.c[n].v!=null?String(r.c[n].v).trim():'';}
+function sheetIdFrom(value){
+  value=String(value||'').trim();
+  const m=value.match(/spreadsheets\/d\/([A-Za-z0-9_-]+)/);
+  if(m)return m[1];
+  return value.match(/^[A-Za-z0-9_-]{20,}$/)?value:'';
+}
+window['phpSet'+SET_NO+'SetlistCallback']=function(data){
+  try{
+    const rs=data&&data.table&&data.table.rows?data.table.rows:[];
+    if(!rs.length) throw new Error('SETLIST में Set '+SET_NO+' नहीं मिला।');
+    const r=rs[0];
+    // SETLIST columns: A=Set No, B=Topic Name, C=File Name, D=Google Sheet ID / Link, E=Copy Link
+    topicName=cell(r,1); fileName=cell(r,2); googleSheetURL=cell(r,3);
+    const sheetId=sheetIdFrom(googleSheetURL);
+    if(!sheetId) throw new Error('SETLIST में Google Sheet ID/URL नहीं मिला।');
+    window.PHP_SET_CONFIG={setNo:SET_NO,topicName:topicName,fileName:fileName,googleSheetURL:googleSheetURL,googleSheetId:sheetId};
+    const title=document.querySelector('.card h2');
+    if(title) title.textContent='MCQ Practice – Set '+SET_NO+(topicName?' — '+topicName:'');
+    if(status) status.textContent='✓ SETLIST से '+fileName+' और Google Sheet URL मिल गया। Questions लोड हो रहे हैं...';
+    const cb='phpSet'+SET_NO+'SheetCallback';
+    window[cb]=function(sheetData){
+      try{
+        const gr=sheetData&&sheetData.table&&sheetData.table.rows?sheetData.table.rows:[];
+        rows=gr.map(function(rr){return {q:cell(rr,0),a:cell(rr,1),b:cell(rr,2),c:cell(rr,3),d:cell(rr,4),ans:(cell(rr,6)||cell(rr,5)||'').replace(/[^ABCD]/gi,'').toUpperCase().charAt(0),desc:cell(rr,8)||cell(rr,7)||''};}).filter(function(x){return x.q&&x.a&&x.b&&x.c&&x.d&&x.ans;}).slice(0,100);
+        if(!rows.length) throw new Error(fileName+' से valid प्रश्न नहीं मिले।');
+        states=rows.map(function(){return freshState();}); i=0;
+        if(status) status.textContent='✓ '+fileName+' से '+rows.length+' प्रश्न लोड हो गए।';
+        if(typeof render==='function') render();
+      }catch(e){if(status) status.textContent='Question data error: '+e.message;}
+    };
+    const q='select * limit 100';
+    const sc=document.createElement('script');
+    sc.src='https://docs.google.com/spreadsheets/d/'+sheetId+'/gviz/tq?pub=1&gid=0&sheet=Sheet1&tq='+encodeURIComponent(q)+'&tqx='+encodeURIComponent('responseHandler:'+cb);
+    sc.onerror=function(){if(status)status.textContent='Google Sheet access नहीं हो सका। SETLIST में दिया URL/Sharing जाँचें।';};
+    document.head.appendChild(sc);
+  }catch(e){if(status)status.textContent='SETLIST error: '+e.message;}
+};
+const sc=document.createElement('script');
+sc.src='https://docs.google.com/spreadsheets/d/'+SETLIST_ID+'/gviz/tq?pub=1&gid=0&sheet=Sheet1&tq='+encodeURIComponent('select * where A = '+SET_NO)+'&tqx='+encodeURIComponent('responseHandler:phpSet'+SET_NO+'SetlistCallback');
+sc.onerror=function(){if(status)status.textContent='SETLIST access नहीं हो सका। SETLIST को web पर publish/public करना होगा।';};
+document.head.appendChild(sc);
+})();
+</script>
+</body></html>

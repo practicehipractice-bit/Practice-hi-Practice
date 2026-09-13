@@ -1,0 +1,330 @@
+<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Practice Hi Practice</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#172033}header{background:#1756a6;color:white;text-align:center;padding:18px}h1{margin:0}.wrap{max-width:1000px;margin:18px auto;padding:12px}.card{background:white;padding:18px;border-radius:12px;box-shadow:0 3px 14px #0001;margin-bottom:15px}.modes,nav{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}button{border:0;border-radius:8px;padding:10px 15px;cursor:pointer}.mode{background:#e5ebf4}.active,nav button,.submit{background:#1756a6;color:white}.skip{background:#777;color:white}.q{font-size:22px;font-weight:bold;line-height:1.5}.opt{display:block;width:100%;text-align:left;background:#f7f9fc;border:2px solid #d5deea;margin:9px 0;font-size:17px}.correct{background:#c9f5d0!important;border-color:#22984b!important}.wrong{background:#ffd0d0!important;border-color:#d33!important}.selected{background:#fff0a0!important;border-color:#c59d00!important}.desc{margin-top:15px;padding:15px;background:#eef6ff;border-left:5px solid #2878d7;border-radius:7px;line-height:1.6}.desc h3{margin:0 0 7px;color:#1756a6}.msg{font-weight:bold;min-height:24px}.num{text-align:center;font-weight:bold}.pal{display:flex;gap:5px;flex-wrap:wrap}.pal button{width:38px;padding:8px;background:#e7ecf3}.pal .cur{background:#1756a6!important;color:white!important}.pal .study-correct{background:#22984b!important;color:white!important}.pal .study-wrong{background:#d33!important;color:white!important}.pal .study-skip{background:#222!important;color:white!important}
+</style><style>.pal .cur{background:#1756a6!important;color:#fff!important}.pal .test-answered{background:#22984b!important;color:#fff!important}.pal .test-wrong{background:#d33!important;color:#fff!important}.pal .test-correct{background:#22984b!important;color:#fff!important}.pal .test-skip{background:#222!important;color:#fff!important}.pal .test-unsolved{background:#9aa4b2!important;color:#fff!important}</style>
+<style id="real-timer-style">#php-timer-setup{display:none;background:#fff7d6;border:2px solid #d7a500;border-radius:12px;padding:14px;margin:12px 0}.timer-title{font-size:16px;font-weight:800;margin-bottom:10px}.timer-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.timer-row label{font-weight:600}.timer-row input{width:90px;padding:7px;border:1px solid #bbb;border-radius:6px}.timer-start{background:#1756a6;color:#fff;padding:10px 18px;border-radius:8px;border:0;font-weight:700}.timer-info{margin-top:9px;font-weight:700}.timer-running{display:none;position:sticky;top:0;z-index:1000;background:#fff;border:3px solid #1756a6;border-radius:12px;padding:8px 14px;margin:10px 0;text-align:center;box-shadow:0 4px 14px #0003}.timer-running .label{font-size:16px;font-weight:800}.timer-running .time{font-size:16px;font-weight:900;letter-spacing:1px;color:#1756a6}body.timer-active .timer-running{display:block}body.timer-active #php-timer-setup{display:none}.timer-running{display:none;align-items:center;justify-content:space-between;gap:20px;text-align:left}.timer-left{min-width:190px}.timer-result{display:block;flex:1;font-size:16px;font-weight:700;line-height:1.5;text-align:right}.timer-result b{font-weight:800}@media(max-width:700px){.timer-running{flex-direction:column;align-items:stretch}.timer-result{text-align:left}}</style><style id="marks-split-style">.qb-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}.qb-left,.qb-right{min-width:0}.qb-right{border:2px solid #1756a6;border-radius:12px;padding:14px;background:#f7fbff;align-self:start;height:max-content}.qb-right h3{margin:0 0 12px;font-size:18px}.marks-box{font-weight:700;line-height:2}.marks-row{display:flex;justify-content:space-between;border-bottom:1px solid #d8e2ef;padding:2px 0}.marks-row:last-child{border-bottom:0}.marks-val{font-weight:900}.marks-note{font-size:12px;color:#666;margin-top:6px}@media(max-width:700px){.qb-split{grid-template-columns:1fr}.qb-right{margin-top:4px}} </style><style id="responsive-design-fix">
+html{font-size:16px}*{box-sizing:border-box}img{max-width:100%;height:auto}body{overflow-x:hidden}.wrap{width:100%;max-width:1050px;margin:0 auto;padding:18px}.card{width:100%}button,a.btn{min-height:42px}.grid{width:100%}.opt{box-sizing:border-box;white-space:normal;overflow-wrap:anywhere}.q{overflow-wrap:anywhere}.pal{max-width:100%;overflow-x:auto;padding-bottom:4px}.pal button{flex:0 0 38px}.timer-row{width:100%}.timer-row label{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.timer-row input{max-width:100%}
+@media (max-width:700px){
+ body{font-size:15px}.wrap{padding:10px}.card{padding:14px;border-radius:10px}.card h2{font-size:21px;line-height:1.25}header{padding:14px 10px}header h1{font-size:26px;line-height:1.15}.q{font-size:19px;line-height:1.45}.opt{font-size:16px;padding:12px 11px;margin:8px 0;min-height:48px}.modes,nav{gap:6px}.modes button,nav button,.btn{flex:1 1 auto;padding:11px 10px;font-size:14px}.grid{grid-template-columns:1fr 1fr!important;gap:8px}.set{padding:12px}.set h3{font-size:16px}.timer-running{padding:9px 10px!important;margin:7px 0!important}.timer-running .time{font-size:16px;}.timer-left{min-width:0!important;width:100%}.timer-result{font-size:16px;}.timer-row{flex-direction:column;align-items:stretch}.timer-row label{width:100%;font-size:16px;}.timer-row input{width:90px!important}.desc{padding:11px}.pal button{width:36px;min-width:36px;padding:8px 4px}
+}
+@media (max-width:420px){.grid{grid-template-columns:1fr!important}.q{font-size:18px}.card{padding:11px}.modes button,nav button{font-size:13px}.timer-title{font-size:16px;}.timer-running .time{font-size:16px;}}
+</style></head><body>
+
+<div class="horizon-computer-ad" style="margin:16px 0;padding:16px 20px;border-radius:12px;border:2px solid #2563eb;background:linear-gradient(135deg,#eff6ff,#ffffff);">
+  <div style="display:grid;grid-template-columns:1.25fr .9fr;gap:20px;align-items:center;text-align:left;">
+    <div>
+      <div style="font-size:24px;font-weight:800;color:#1756a6;">💻 Horizon Computer</div>
+      <div style="font-size:17px;font-weight:700;margin-top:4px;">Computer Education &amp; Practical Training</div>
+      <div style="font-size:14px;line-height:1.6;margin-top:7px;">Computer सीखने, Digital Skills और Practical Training के लिए आपका अपना प्रशिक्षण केंद्र।</div>
+      <div style="font-size:13px;margin-top:9px;font-weight:700;">DCA • Computer Basics • MS Office • Typing • Internet &amp; Digital Skills</div>
+    </div>
+    <div style="border-left:2px solid #d5e3f7;padding-left:20px;font-size:13px;line-height:1.8;">
+      <div>📍 <strong>NOKHA MILL, ITARHI ROAD, BUXAR</strong></div>
+      <div>📧 <strong>practicehipractice@gmail.com</strong></div>
+      <div>📱 <strong>7277446690</strong></div>
+      <div style="margin-top:7px;font-weight:700;">🎯 अपना Custom MCQ Set बनवाएँ</div>
+      <div>Excel Format में अपना Set बनवाने के लिए ईमेल करें।</div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #d5e3f7;margin-top:12px;padding:10px 12px;text-align:center;font-size:13px;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;align-items:center;border-radius:9px;background:linear-gradient(90deg,#dbeafe,#fef3c7,#dcfce7);">
+  <div style="text-align:left;font-weight:800;color:#1d4ed8;">Practice Hi Practice — अभ्यास ही सफलता की कुंजी है।</div>
+  <div style="text-align:center;font-weight:800;color:#7c3aed;">A Learning Initiative by Horizon Computer</div>
+  <div style="text-align:right;font-weight:800;color:#15803d;">Practice Makes Perfect<br><span style="font-weight:700;">अभ्यास परिपूर्ण बनाता है।</span></div>
+</div>
+  <style>@media(max-width:700px){.horizon-computer-ad>div:first-child{grid-template-columns:1fr!important}.horizon-computer-ad>div:first-child>div:nth-child(2){border-left:0!important;border-top:2px solid #d5e3f7;padding-left:0!important;padding-top:12px}}</style>
+</div>
+
+
+
+<header><h1>Practice Hi Practice</h1><div>अभ्यास ही सफलता की कुंजी है।</div></header>
+<div class="wrap"><button id="yop30Reset" style="background:#eee;color:#222;margin:10px 0;padding:9px 13px;border:1px solid #bbb;border-radius:8px;cursor:pointer">🔄 Reset Demo / Testing</button><div class="card"><div class="qb-split"><div class="qb-left"><b>Question Bank</b>
+
+<div class="guess-set-highlight" style="margin:14px 0;padding:16px 18px;border-radius:12px;border:2px solid #f59e0b;background:linear-gradient(135deg,#fff7ed,#fffbeb);text-align:center;">
+  <div style="font-size:20px;font-weight:800;">🎯 अपना Guess Question Set बनाइए</div>
+  <div style="font-size:15px;line-height:1.6;margin-top:6px;">
+    परीक्षा से पहले अपने महत्वपूर्ण और संभावित प्रश्नों का Set तैयार करें और उसी की Practice करें।
+  </div>
+  <div style="font-size:13px;margin-top:5px;">
+    अपने VVI / Guess Questions Excel में तैयार करें → Upload करें → Study, Test और One-liner तीनों Mode में Practice करें।
+  </div>
+</div>
+
+<div class="template-download-box" style="margin:12px 0;text-align:center;">
+  <a href="Practice_Hi_Practice_Excel_Template.xlsx" download
+     class="btn" style="display:inline-block;text-decoration:none;">
+     📥 अपना Excel Format Download करें
+  </a>
+  <div style="font-size:13px;margin-top:6px;opacity:.8;">
+    Subject और Description Optional हैं। बाकी जानकारी सही भरें।
+  </div>
+</div>
+
+<input id="file" type="file" accept=".xlsx" style="display:block;margin-top:10px;width:100%"><p id="status">पहले अपनी Excel file चुनें।</p><div class="modes"><button class="mode active" onclick="setMode('study',this)">Study Mode</button>
+<button class="mode" onclick="setMode('test',this)">Test Mode</button><button class="mode" onclick="setMode('one',this)">One-liner</button></div></div><div class="qb-right" id="marks-panel"><h3>📊 Test Result / Marks</h3><div id="marks-content" class="marks-box"><div class="marks-note">Test Mode में Submit करने के बाद Marks यहाँ दिखाई देंगे।</div></div><div class="custom-set-email" style="margin-top:12px;padding:12px;border:1px solid #f0c36d;border-radius:10px;background:#fff8e6;text-align:center"><div style="font-size:16px;font-weight:800">📧 अपना Custom MCQ Set बनवाएँ</div><div style="font-size:13px;margin-top:5px">Excel Format में अपना Set बनवाने के लिए ईमेल करें:</div><div style="font-size:18px;font-weight:800;margin:4px 0">practicehipractice@gmail.com</div><div style="font-size:13px;font-weight:700">शुल्क: ₹50–₹100 प्रति Set</div></div></div></div></div><div id="php-timer-setup"><div class="timer-title">⏱ Test Mode Timer</div><div class="timer-row"><label><input type="radio" name="phpTimerType" value="question" checked> प्रति Question Timer</label><label><input type="radio" name="phpTimerType" value="set"> प्रति Set Timer</label></div><div class="timer-row" style="margin-top:10px"><label id="phpQTimeLabel">प्रति Question समय (सेकंड): <input id="phpQSeconds" type="number" min="1" value="60"></label><label id="phpSetTimeLabel" style="display:none">प्रति Set समय (मिनट): <input id="phpSetMinutes" type="number" min="1" value="60"></label><button id="timerStartBtn" class="timer-start">Test शुरू करें</button></div><div id="phpTotalTimeInfo" class="timer-info"></div></div><div id="php-test-timer-wrap" class="timer-running"><div class="timer-left"><span class="label">Test Mode Timer — शेष समय: </span><span id="php-test-timer" class="time">00:00</span></div><div id="test-result" class="timer-result"></div></div>
+<div class="card"><div id="q" class="q"></div><div id="opts"></div><div id="msg" class="msg"></div><div id="desc"></div>
+<nav><button onclick="prev()">← पिछला</button><button class="skip" onclick="skip()">Skip</button><button onclick="next()">अगला →</button></nav><div id="num" class="num"></div><div id="pal" class="pal"></div></div></div>
+<script>
+let rows=[],i=0,mode='study',locked=false,sel=null;
+let testSubmitted=false;
+let statesByMode={study:[],test:[],one:[]};
+function freshState(){return {selected:null,checked:false,one:false,palStatus:null}}
+function getState(n=i){let states=statesByMode[mode];if(!states[n])states[n]=freshState();return states[n]}
+function resetStates(){statesByMode={study:rows.map(()=>freshState()),test:rows.map(()=>freshState()),one:rows.map(()=>freshState())};testSubmitted=false}
+const file=document.getElementById('file');file.onchange=e=>e.target.files[0]&&load(e.target.files[0]);
+document.querySelectorAll('.mode').forEach(()=>{});
+function setMode(m,b){mode=m;document.querySelectorAll('.mode').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()}
+async function unzip(f){let a=new Uint8Array(await f.arrayBuffer()),v=new DataView(a.buffer),p=0,o={};const u16=x=>v.getUint16(x,true),u32=x=>v.getUint32(x,true);
+while(p+30<a.length){if(u32(p)!=0x04034b50)break;let meth=u16(p+8),cs=u32(p+18),nl=u16(p+26),el=u16(p+28),name=new TextDecoder().decode(a.slice(p+30,p+30+nl)),d=a.slice(p+30+nl+el,p+30+nl+el+cs);o[name]=meth==0?d:await new Response(new Blob([d]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();if(meth!=0)o[name]=new Uint8Array(o[name]);p+=30+nl+el+cs}return o}
+function xml(x){return new DOMParser().parseFromString(x,'application/xml')}
+async function load(f){try{status.textContent='Excel पढ़ा जा रहा है...';let z=await unzip(f),shared=[];if(z['xl/sharedStrings.xml'])xml(new TextDecoder().decode(z['xl/sharedStrings.xml'])).querySelectorAll('si').forEach(x=>shared.push([...x.querySelectorAll('t')].map(y=>y.textContent).join('')));
+let d=xml(new TextDecoder().decode(z['xl/worksheets/sheet1.xml']));rows=[];d.querySelectorAll('sheetData>row').forEach(r=>{let a=[];r.querySelectorAll(':scope>c').forEach(c=>{let m=(c.getAttribute('r')||'').match(/[A-Z]+/);if(!m)return;let col=0;for(let ch of m[0])col=col*26+ch.charCodeAt(0)-64;col--;while(a.length<=col)a.push('');let val=c.querySelector('v')?.textContent||'';if(c.getAttribute('t')==='s')val=shared[+val]||'';if(c.getAttribute('t')==='inlineStr')val=[...c.querySelectorAll('t')].map(x=>x.textContent).join('');a[col]=val});if(a.some(x=>String(x).trim()))rows.push(a)});status.textContent=rows.length+' प्रश्न लोड हुए।';
+window.YOP30_CONTACT_DONE=false;
+window.YOP30_SUB_UNLOCKED=false;
+window.YOP30_PENDING_INDEX=10;
+try{localStorage.removeItem('YOP30_FINAL_STATE_V3');}catch(e){}
+i=0;localStorage.removeItem('YOP30_FINAL_STATE_V3');if(typeof st!=='undefined'){st={contactDone:false,subscriptionUnlocked:false,mobile:'',gmail:''};window.YOP30_CONTACT_DONE=false;window.YOP30_SUB_UNLOCKED=false;}resetStates();render()}catch(e){status.textContent='Excel load नहीं हुआ। ऊपर से file चुनें।'}}
+function ans(r){let x=String(r[6]||'').trim().toUpperCase();if('ABCD'.includes(x)&&x.length==1)return x;let n=[r[1],r[2],r[3],r[4]].findIndex(x=>String(x||'').trim()===String(r[5]||'').trim());return n>=0?'ABCD'[n]:''}
+function esc(s){return String(s).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]))}
+
+function updateTestStats(){
+  let e=document.getElementById('marks-content'); if(!e)return;
+  let panel=document.getElementById('marks-panel');
+  if(mode!=='test'){panel.style.display='none';return;}
+  panel.style.display='block';
+  if(!testSubmitted){e.innerHTML='<div class="marks-note">Test Mode में Submit करने के बाद Marks यहाँ दिखाई देंगे।</div>';return;}
+  let ss=statesByMode.test||[],correct=0,wrong=0,skip=0,solved=0;
+  ss.forEach((st,idx)=>{if(!st)return;if(st.selected)solved++;if(st.palStatus==='skip'&&!st.selected)skip++;if(st.checked&&st.selected){if(st.selected===ans(rows[idx]))correct++;else wrong++;}});
+  let totalObtained=correct,totalMinus=wrong*0.25,net=totalObtained-totalMinus,notSolved=Math.max(0,rows.length-solved-skip);
+  e.innerHTML='<div class="marks-row"><span>Total Marks Obtained</span><span class="marks-val">'+totalObtained.toFixed(2)+'</span></div><div class="marks-row"><span>Total Minus Marks</span><span class="marks-val">'+totalMinus.toFixed(2)+'</span></div><div class="marks-row"><span>Net Marks Obtained</span><span class="marks-val">'+net.toFixed(2)+'</span></div><div class="marks-note">Correct: '+correct+' | Wrong: '+wrong+' | Solved: '+solved+' | Skipped: '+skip+' | Not Solved: '+notSolved+'</div>';
+}
+function submitWholeTest(){
+  if(mode!=='test'||testSubmitted)return;
+  statesByMode.test.forEach((st,idx)=>{if(!st)return;if(st.selected){st.checked=true;st.palStatus=(st.selected===ans(rows[idx]))?'correct':'wrong';}else{st.checked=true;st.palStatus='skip';}});
+  testSubmitted=true; locked=true; sel=getState().selected; updateTestStats(); render();
+}
+function render(){if(!rows.length){q.textContent='Question_Bank.xlsx चुनें।';return}let r=rows[i],st=getState();locked=(mode==='test'&&testSubmitted)||st.checked;sel=st.selected;msg.textContent='';q.textContent=(i+1)+'. '+(r[0]||'');desc.innerHTML=r[9]?'<div class="desc"><h3>📖 Description / व्याख्या</h3>'+esc(r[9]).replace(/\n/g,'<br>')+'</div>':'';opts.innerHTML='';
+if(mode==='one'){if(st.one){let c=ans(r),o=[r[1],r[2],r[3],r[4]];let b=document.createElement('div');b.className='desc';b.innerHTML='<h3>उत्तर: '+esc(o['ABCD'.indexOf(c)]||'')+'</h3>';opts.appendChild(b)}else{let b=document.createElement('button');b.className='opt';b.textContent='उत्तर देखने के लिए क्लिक करें';b.onclick=one;opts.appendChild(b)}}else{['A','B','C','D'].forEach((x,n)=>{let b=document.createElement('button');b.className='opt';b.textContent=x+') '+(r[n+1]||'');if(st.selected===x)b.classList.add(st.checked?(x===ans(r)?'correct':'wrong'):'selected');if(st.checked&&x===ans(r))b.classList.add('correct');b.onclick=()=>choose(x,b);if(st.checked)b.disabled=true;opts.appendChild(b)});if(mode==='test'){let b=document.createElement('button');b.className='submit';b.textContent='Submit';b.onclick=submitWholeTest;if(testSubmitted)b.disabled=true;opts.appendChild(b)}}if(st.checked)msg.textContent=st.selected===ans(r)?'✓ सही उत्तर':'✗ गलत उत्तर';num.textContent='प्रश्न '+(i+1)+' / '+rows.length;pal.innerHTML='';rows.forEach((_,n)=>{let b=document.createElement('button');b.textContent=n+1;if(mode==='study'){let ps=getState(n).palStatus;if(ps==='correct')b.classList.add('study-correct');else if(ps==='wrong')b.classList.add('study-wrong');else if(ps==='skip')b.classList.add('study-skip')}else if(mode==='test'){let ts=getState(n);if(ts.palStatus==='wrong')b.classList.add('test-wrong');else if(ts.palStatus==='correct')b.classList.add('test-correct');else if(ts.palStatus==='skip')b.classList.add('test-skip');else if(ts.selected)b.classList.add('test-answered');else b.classList.add('test-unsolved')}if(n===i)b.classList.add('cur');b.onclick=()=>{if(gateIndex(n))return;i=n;render()};pal.appendChild(b)});updateTestStats()}
+function choose(x,b){if(locked)return;let st=getState();if(mode==='study'){st.selected=x;st.checked=true;st.palStatus=(x===ans(rows[i]))?'correct':'wrong';locked=true;if(x===ans(rows[i])){b.classList.add('correct');msg.textContent='✓ सही उत्तर'}else{b.classList.add('wrong');document.querySelectorAll('.opt').forEach((z,n)=>{if('ABCD'[n]===ans(rows[i]))z.classList.add('correct')});msg.textContent='✗ गलत उत्तर'}render()}else{if(testSubmitted)return;st.selected=x;sel=x;st.palStatus='answered';document.querySelectorAll('.opt').forEach(z=>z.classList.remove('selected'));b.classList.add('selected');render()} }
+function submit(){if(mode==='test'){submitWholeTest();return;}if(!sel){msg.textContent='पहले उत्तर चुनें।';return}let st=getState();st.selected=sel;st.checked=true;st.palStatus=(sel===ans(rows[i]))?'correct':'wrong';locked=true;render()}
+function one(){let st=getState();st.one=true;render()}
+function ensureContactGate(){
+  if(window.YOP30_CONTACT_DONE) return true;
+  var mobile=prompt("Q1–10 FREE पूरा हुआ। आगे बढ़ने के लिए Mobile Number दर्ज करें:");
+  if(mobile===null) return false;
+  mobile=String(mobile).trim();
+  if(!/^\\d{10}$/.test(mobile)){ alert("कृपया 10 अंकों का Mobile Number दर्ज करें।"); return false; }
+  var gmail=prompt("अब Gmail दर्ज करें:");
+  if(gmail===null) return false;
+  gmail=String(gmail).trim();
+  if(!/^[^@\\s]+@gmail\\.com$/i.test(gmail)){ alert("कृपया सही Gmail दर्ज करें।"); return false; }
+  var otp=prompt("TEST OTP दर्ज करें: 123456");
+  if(otp!=="123456"){ alert("गलत OTP। TEST OTP 123456 है।"); return false; }
+  window.YOP30_CONTACT_DONE=true;
+  try{localStorage.setItem('YOP30_FINAL_STATE_V3',JSON.stringify({contactDone:true,subscriptionUnlocked:false,mobile:mobile,gmail:gmail}));}catch(e){}
+  return true;
+}
+function gateIndex(n){
+  if(n>=10 && !window.YOP30_CONTACT_DONE){
+    window.YOP30_PENDING_INDEX=n;
+    if(typeof window.YOP30_OPEN_CONTACT==='function'){
+      window.YOP30_OPEN_CONTACT();
+    } else if(typeof ensureContactGate==='function'){
+      ensureContactGate();
+    }
+    return true;
+  }
+  if(n>=30 && !window.YOP30_SUB_UNLOCKED){
+    if(typeof window.YOP30_OPEN_SUB==='function') window.YOP30_OPEN_SUB();
+    return true;
+  }
+  return false;
+}
+function next(){let n=i+1;if(n<rows.length && gateIndex(n))return;if(i<rows.length-1){i++;render()}}function skip(){let n=i+1;if(n<rows.length && gateIndex(n))return;if(mode==='study'){let st=getState();if(!st.checked)st.palStatus='skip'}else if(mode==='test'){let st=getState();if(!st.selected&&!st.checked)st.palStatus='skip'}if(i<rows.length-1){i++;render()}}function prev(){if(i>0){i--;render()}}
+
+</script><style id="test-result-style">.test-result{background:transparent;border:0;padding:0;margin:0;font-weight:700;line-height:1.45}.test-result .ok{font-weight:800}.test-result .minus{font-weight:800}.pal .test-correct,.pal .test-answered{background:#22984b!important;color:#fff!important}.pal .test-wrong{background:#d33!important;color:#fff!important}.pal .test-skip{background:#222!important;color:#fff!important}.pal .test-unsolved{background:#9aa4b2!important;color:#fff!important}</style><script id="real-timer-script">(function(){
+let timerId=null,remaining=0,running=false,questionTimer=false,expired=false,startValue=0;
+const $=s=>document.querySelector(s);
+function count(){return (typeof rows!=="undefined"&&Array.isArray(rows)&&rows.length)?rows.length:100}
+function fmt(x){x=Math.max(0,Math.floor(x));if(questionTimer)return String(x);let h=Math.floor(x/3600),m=Math.floor((x%3600)/60),s=x%60;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+function info(){let r=$("input[name='phpTimerType']:checked");let q=r&&r.value==='question';let v=q?+$('#phpQSeconds').value:+$('#phpSetMinutes').value;if(!v)v=q?60:60;let sec=q?v:v*60;$('#phpTotalTimeInfo').textContent='कुल समय: '+(q?v+' सेकंड प्रति प्रश्न':fmt(sec)+' कुल समय')+' ('+count()+' प्रश्न)'}
+function showSetup(){let el=$('#php-timer-setup');if(el)el.style.display='block'}
+function hideSetup(){let el=$('#php-timer-setup');if(el)el.style.display='none'}
+function stop(keepDisplay=false){if(timerId!==null){clearInterval(timerId);timerId=null}running=false;if(!keepDisplay)document.body.classList.remove('timer-active')}
+function lockAll(){if(typeof submitWholeTest==='function' && typeof mode!=='undefined' && mode==='test' && !testSubmitted)submitWholeTest();expired=true;stop(true);let te=$('#php-test-timer');if(te)te.textContent=fmt(0);if(typeof updateTestStats==='function')updateTestStats();document.querySelectorAll('#opts button,.submit').forEach(b=>b.disabled=true);let old=document.getElementById('timerExpiredBox');if(old)old.remove();let m=document.createElement('div');m.id='timerExpiredBox';m.style.cssText='position:fixed;inset:0;background:#0008;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';m.innerHTML='<div style="background:#fff;border-radius:14px;padding:25px;max-width:420px;text-align:center"><h2>समय पूरा हो गया</h2><p>सभी Questions lock कर दिए गए हैं।</p><button id="timerOk" style="background:#1756a6;color:#fff;border:0;border-radius:8px;padding:10px 18px">ठीक है</button></div>';document.body.appendChild(m);$('#timerOk').onclick=()=>m.remove()}
+function finalizeCurrentForTimer(){
+  if(typeof mode==='undefined' || mode!=='test') return;
+  try{
+    if(typeof getState==='function'){
+      let s=getState();
+      if(s && !s.checked){
+        if(s.selected){s.checked=true;s.palStatus=(s.selected===ans(rows[i]))?'correct':'wrong';}
+        else{s.palStatus='skip';}
+      }
+    }else if(typeof st==='function'){
+      let s=st();
+      if(s && !s.checked){
+        if(s.selected){s.checked=true;s.palStatus=(s.selected===ans(rows[i]))?'correct':'wrong';}
+        else{s.palStatus='skip';}
+      }
+    }
+  }catch(e){}
+}
+function finalizeAllForTimer(){
+  if(typeof mode==='undefined' || mode!=='test') return;
+  try{
+    let ss=(typeof states!=='undefined')?states:(typeof statesByMode!=='undefined'?statesByMode.test:[]);
+    if(!ss)return;
+    ss.forEach((s,idx)=>{
+      if(!s || s.checked) return;
+      if(s.selected){s.checked=true;s.palStatus=(s.selected===ans(rows[idx]))?'correct':'wrong';}
+      else{s.palStatus='skip';}
+    });
+  }catch(e){}
+}
+function tick(){
+  if(!running)return;
+  remaining--;
+  let el=$('#php-test-timer');if(el)el.textContent=fmt(remaining);
+  if(remaining>0)return;
+  if(questionTimer){
+    finalizeCurrentForTimer();
+    if(typeof updateTestStats==='function')updateTestStats();
+    if(typeof rows!=='undefined'&&rows.length&&typeof i!=='undefined'&&i<rows.length-1){
+      i++;
+      if(typeof render==='function')render();
+      remaining=startValue;
+      let e=$('#php-test-timer');if(e)e.textContent=fmt(remaining);
+      return;
+    }
+    finalizeAllForTimer();
+    lockAll();
+  }else{
+    finalizeAllForTimer();
+    if(typeof render==='function')render();
+    lockAll();
+  }
+}
+function start(){if(!rows.length){alert('पहले Excel file चुनें। बिना file के Test शुरू नहीं होगा।');return;}if(running)return;let r=$("input[name='phpTimerType']:checked");if(!r)return;let q=r.value==='question';let v=q?+$('#phpQSeconds').value:+$('#phpSetMinutes').value;if(!Number.isFinite(v)||v<1){alert('समय सही भरें।');return}questionTimer=q;startValue=Math.floor(v);remaining=q?startValue:startValue*60;expired=false;running=true;document.body.classList.add('timer-active');document.querySelectorAll("input[name='phpTimerType'],#phpQSeconds,#phpSetMinutes,#timerStartBtn").forEach(el=>el.disabled=true);hideSetup();let e=$('#php-test-timer');if(e)e.textContent=fmt(remaining);if(timerId!==null)clearInterval(timerId);timerId=setInterval(tick,1000);if(typeof updateTestStats==='function')updateTestStats()}
+function setup(){let box=$('#php-timer-setup'),btn=$('#timerStartBtn');if(!box||!btn)return;showSetup();btn.onclick=start;document.querySelectorAll("input[name='phpTimerType']").forEach(r=>{r.onchange=function(){if(running)return;let q=r.value==='question';$('#phpQTimeLabel').style.display=q?'inline':'none';$('#phpSetTimeLabel').style.display=q?'none':'inline';info()}});['phpQSeconds','phpSetMinutes'].forEach(id=>{let e=$('#'+id);if(e)e.oninput=info});info()}
+function modeChanged(m){if(m!=='test'){if(running)stop();hideSetup();return}if(!expired){showSetup();if(!running)setup()}}
+// Hook existing setMode without changing its visual format.
+let oldSetMode=window.setMode;if(typeof oldSetMode==='function'&&!oldSetMode.__timerHooked){let wrapped=function(m,b){oldSetMode(m,b);modeChanged(m)};wrapped.__timerHooked=true;window.setMode=wrapped}
+setup();
+})();</script>
+
+<section class="comment-box" id="comments">
+  <h2>💬 कमेंट / सुझाव</h2>
+  <p class="comment-note">अपने विचार, सुझाव या प्रश्न यहाँ लिखें।</p>
+  <form class="comment-form" onsubmit="saveSiteComment(event)">
+    <input id="commentName" type="text" placeholder="आपका नाम" maxlength="50" required>
+    <textarea id="commentText" placeholder="अपना कमेंट या सुझाव लिखें..." maxlength="500" required></textarea>
+    <button type="submit">कमेंट भेजें</button>
+  </form>
+  <div id="commentList" class="comment-list"></div>
+</section>
+<style>
+.comment-box{background:#fff;border:1px solid #e3e9f3;border-radius:16px;padding:20px;margin:24px 0;box-shadow:0 5px 18px #0000000b}
+.comment-box h2{margin:0 0 6px;color:#173b78;text-align:center}.comment-note{text-align:center;color:#657086;margin:0 0 15px}
+.comment-form{max-width:760px;margin:auto;display:grid;gap:10px}.comment-form input,.comment-form textarea{width:100%;padding:12px;border:1px solid #ccd6e5;border-radius:9px;font:inherit}.comment-form textarea{min-height:100px;resize:vertical}.comment-form button{background:#1769e0;color:#fff;border:0;border-radius:9px;padding:12px;font-weight:700;cursor:pointer}.comment-list{max-width:760px;margin:18px auto 0;display:grid;gap:10px}.comment-item{background:#f5f7fb;border-left:4px solid #1769e0;border-radius:9px;padding:11px 13px}.comment-item b{color:#173b78}.comment-item small{color:#657086;margin-left:8px}.comment-item p{margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:600px){.comment-box{padding:13px;border-radius:11px}.comment-form button{min-height:44px}.comment-box h2{font-size:21px}}
+</style>
+<script>
+(function(){
+ const KEY='php_site_comments_v1';
+ function esc(s){return s.replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]})}
+ window.renderSiteComments=function(){
+  const el=document.getElementById('commentList'); if(!el)return;
+  let arr=[]; try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+  el.innerHTML=arr.length?arr.slice().reverse().map(x=>'<div class="comment-item"><b>'+esc(x.name)+'</b><small>'+esc(x.date)+'</small><p>'+esc(x.text)+'</p></div>').join(''):'<p class="small" style="text-align:center">अभी कोई कमेंट नहीं है। पहला कमेंट आप करें।</p>';
+ };
+ window.saveSiteComment=function(e){
+  e.preventDefault(); const n=document.getElementById('commentName'),t=document.getElementById('commentText');
+  let arr=[]; try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(x){}
+  arr.push({name:n.value.trim(),text:t.value.trim(),date:new Date().toLocaleDateString('hi-IN')});
+  localStorage.setItem(KEY,JSON.stringify(arr.slice(-50))); n.value='';t.value='';renderSiteComments();
+ };
+ document.addEventListener('DOMContentLoaded',renderSiteComments);
+})();
+</script>
+
+
+
+
+
+
+
+<style id="yop30-final-style">
+#yop30Overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:100001;align-items:center;justify-content:center;padding:16px}
+.yop30-card{background:#fff;width:min(480px,95vw);border-radius:16px;padding:24px;box-shadow:0 12px 40px rgba(0,0,0,.28);font-family:Arial,sans-serif}
+.yop30-card h2{margin:0 0 10px;color:#1756a6}.yop30-card p{line-height:1.55}.yop30-card input{width:100%;box-sizing:border-box;padding:11px;margin:7px 0;border:1px solid #bbb;border-radius:8px;font-size:16px}.yop30-card button{padding:11px 17px;border:0;border-radius:8px;cursor:pointer;margin:7px 5px 0 0;font-weight:700}.yop30-primary{background:#1756a6;color:#fff}.yop30-secondary{background:#eee;color:#222}.yop30-msg{font-weight:700;min-height:24px;margin-top:10px}.yop30-otp{display:none}.yop30-plans{display:none}.yop30-plan{display:block;width:100%;text-align:left;background:#f4f7fb;color:#173b78;border:1px solid #d4deed!important}.yop30-plan:hover{background:#e8f0fb}.yop30-pay{display:none;text-align:center}.yop30-price{font-size:27px;font-weight:800;margin:12px}.yop30-success{color:#16833b}
+</style>
+<div id="yop30Overlay"><div class="yop30-card">
+  <h2 id="yop30Title">YOUR OWN PRACTICE SET</h2>
+  <p id="yop30Text"></p>
+  <div id="yop30ContactFields"><input id="yop30Mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="Mobile Number"><input id="yop30Gmail" type="email" placeholder="Gmail"></div>
+  <div class="yop30-otp" id="yop30OtpBox"><input id="yop30Otp" type="tel" inputmode="numeric" maxlength="6" placeholder="TEST OTP: 123456"></div>
+  <div class="yop30-plans" id="yop30Plans">
+    <button class="yop30-plan" data-plan="₹49 / 1 Month">₹49 / 1 Month</button>
+    <button class="yop30-plan" data-plan="₹99 / 3 Months">₹99 / 3 Months</button>
+    <button class="yop30-plan" data-plan="₹299 / 1 Year">₹299 / 1 Year</button>
+  </div>
+  <div class="yop30-pay" id="yop30PayBox"><div>Selected Plan</div><div class="yop30-price" id="yop30Price"></div><p>यह TEST MODE है। कोई वास्तविक पैसा नहीं कटेगा।</p><button id="yop30PayBtn" class="yop30-primary">PAY NOW</button></div>
+  <button id="yop30Action" class="yop30-primary">Continue</button><button class="yop30-secondary" id="yop30Close">Close</button>
+  <div id="yop30Msg" class="yop30-msg"></div>
+</div></div>
+<script id="yop30-final-script">
+(function(){
+ const KEY='YOP30_FINAL_STATE_V3';
+ let st={contactDone:false,subscriptionUnlocked:false,mobile:'',gmail:''};
+ try{st=Object.assign(st,JSON.parse(localStorage.getItem(KEY)||'{}'));}catch(e){}
+ window.YOP30_CONTACT_DONE=!!st.contactDone; window.YOP30_SUB_UNLOCKED=!!st.subscriptionUnlocked;
+ let pending=null, selectedPlan='';
+ const $=id=>document.getElementById(id), save=()=>localStorage.setItem(KEY,JSON.stringify(st));
+ function show(type){
+   const o=$('yop30Overlay'), title=$('yop30Title'), text=$('yop30Text'), fields=$('yop30ContactFields'), otp=$('yop30OtpBox'), plans=$('yop30Plans'), pay=$('yop30PayBox'), action=$('yop30Action'), msg=$('yop30Msg');
+   o.style.display='flex'; msg.textContent=''; otp.style.display='none'; plans.style.display='none'; pay.style.display='none'; action.style.display='inline-block';
+   if(type==='contact'){
+     title.textContent='अगले 20 Questions के लिए'; text.textContent='पहले 10 Questions पूरे हो गए हैं। Questions 11–30 का FREE Practice जारी रखने के लिए Mobile Number और Gmail verify करें।';
+     fields.style.display='block'; action.textContent='Send OTP'; action.onclick=sendOtp;
+     $('yop30Mobile').value=st.mobile||''; $('yop30Gmail').value=st.gmail||'';
+   }else if(type==='sub'){
+     title.textContent='UNLOCK YOUR FULL PRACTICE SET'; text.textContent='आपने 30 Questions का FREE Demo पूरा कर लिया है। पूरे Set को Unlock करने के लिए Subscription Plan चुनें।'; fields.style.display='none'; action.style.display='none'; plans.style.display='block';
+   }else if(type==='pay'){
+     title.textContent='TEST PAYMENT'; text.textContent='आपने Subscription Plan चुना है।'; fields.style.display='none'; action.style.display='none'; pay.style.display='block'; $('yop30Price').textContent=selectedPlan;
+   }
+ }
+ function sendOtp(){
+   const m=($('yop30Mobile').value||'').replace(/\D/g,''), g=($('yop30Gmail').value||'').trim().toLowerCase(), msg=$('yop30Msg');
+   if(!/^[6-9]\d{9}$/.test(m)){msg.textContent='कृपया सही 10 अंकों का Mobile Number डालें।';return;}
+   if(!/^[^\s@]+@gmail\.com$/i.test(g)){msg.textContent='कृपया सही Gmail ID डालें।';return;}
+   st.mobile=m;st.gmail=g;save();$('yop30OtpBox').style.display='block';$('yop30Otp').value='';$('yop30Action').textContent='Verify OTP';$('yop30Action').onclick=verifyOtp;msg.textContent='TEST OTP: 123456';
+ }
+ function verifyOtp(){
+   const msg=$('yop30Msg');
+   if(($('yop30Otp').value||'').trim()!=='123456'){msg.textContent='OTP गलत है। Test OTP 123456 डालें।';return;}
+   st.contactDone=true;window.YOP30_CONTACT_DONE=true;save();$('yop30Overlay').style.display='none';
+   if(window.YOP30_PENDING_INDEX!=null){i=window.YOP30_PENDING_INDEX;window.YOP30_PENDING_INDEX=null;render();}
+ }
+ window.YOP30_OPEN_CONTACT=()=>show('contact'); window.YOP30_OPEN_SUB=()=>show('sub');
+ $('yop30Close').onclick=()=>{$('yop30Overlay').style.display='none'};
+ document.querySelectorAll('.yop30-plan').forEach(b=>b.onclick=()=>{selectedPlan=b.dataset.plan;show('pay')});
+ $('yop30PayBtn').onclick=()=>{
+   $('yop30Msg').textContent='✅ TEST PAYMENT SUCCESSFUL'; $('yop30Msg').classList.add('yop30-success');
+   st.subscriptionUnlocked=true;window.YOP30_SUB_UNLOCKED=true;save();
+   setTimeout(()=>{$('yop30Overlay').style.display='none'; if(typeof render==='function')render();},700);
+ };
+})();
+</script>
+
+<script id="yop30-reset-script">
+document.getElementById('yop30Reset')?.addEventListener('click',function(){
+  localStorage.removeItem('YOP30_FINAL_STATE_V3');
+  location.reload();
+});
+</script>
+
+<div style="text-align:center;color:#7c3aed;">A Learning Initiative by Horizon Computer</div>
+  <div style="text-align:right;color:#15803d;">Practice Makes Perfect</div>
+</div>
+
+</body></html>
