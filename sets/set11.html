@@ -342,4 +342,96 @@ document.head.appendChild(sc);
 })();
 </script>
 
+
+<script id="php-final-test-fix">
+(function(){
+  function resultBox(){
+    let e=document.getElementById('test-result');
+    if(!e){
+      e=document.createElement('div'); e.id='test-result'; e.className='test-result';
+      let p=document.getElementById('pal'); if(p&&p.parentNode)p.parentNode.insertBefore(e,p.nextSibling); else document.body.appendChild(e);
+    }
+    return e;
+  }
+  function getAns(r){return String(r&&r.ans||'').trim().toUpperCase().charAt(0)}
+  function stats(){
+    const e=resultBox();
+    if(window.mode!=='test'||!window.testFinished){e.style.display='none';e.innerHTML='';return;}
+    let correct=0,wrong=0,unanswered=0,total=Array.isArray(window.rows)?rows.length:0;
+    (window.states||[]).forEach((s,n)=>{
+      if(!s||!s.selected){unanswered++;return;}
+      if(s.selected===getAns(rows[n]))correct++; else wrong++;
+    });
+    let minus=wrong*0.25, net=correct-minus, pct=total?net/total*100:0;
+    e.style.display='block';
+    e.innerHTML='<div style="background:#f0f7ff;border:2px solid #1769e0;border-radius:12px;padding:16px;margin-top:14px;line-height:1.8"><h3 style="margin:0 0 8px;color:#1756a6">📊 पूरा Test Result</h3><div>कुल प्रश्न: <b>'+total+'</b></div><div>सही उत्तर: <b>'+correct+'</b> × 1 = <b>'+correct.toFixed(2)+'</b></div><div>गलत उत्तर: <b>'+wrong+'</b> × 0.25 = <b>−'+minus.toFixed(2)+'</b></div><div>छोड़े गए: <b>'+unanswered+'</b></div><div style="font-size:21px">Final Marks: <b>'+net.toFixed(2)+'</b> / '+total+'</div><div>Percentage: <b>'+pct.toFixed(2)+'%</b></div></div>';
+  }
+  window.updateTestStats=stats;
+  window.setMode=function(m,b){
+    window.mode=m; window.testFinished=false; window.sel=null; window.i=0;
+    document.querySelectorAll('.mode').forEach(x=>x.classList.remove('active')); if(b)b.classList.add('active');
+    try{if(typeof stop==='function')stop()}catch(e){}
+    try{if(typeof modeChanged==='function')modeChanged(m)}catch(e){}
+    if(typeof window.render==='function')window.render();
+  };
+  window.choose=function(x){
+    if(window.testFinished)return;
+    let s=window.states[window.i]; if(!s)return;
+    if(window.mode==='study'){
+      if(s.checked)return; s.selected=x;s.checked=true;s.palStatus=x===getAns(window.rows[window.i])?'correct':'wrong';
+    } else if(window.mode==='test'){
+      if(s.selected)return; s.selected=x;s.checked=false;s.palStatus='answered';
+    }
+    window.render();
+  };
+  window.canGo=function(n){
+    if(n<0||n>=window.rows.length)return false;
+    if(n>=10 && typeof window.php10AllowNext==='function' && !window.php10AllowNext())return false;
+    if(n>=30 && typeof window.phpSubAllowNext==='function' && !window.phpSubAllowNext())return false;
+    return true;
+  };
+  window.submitTest=function(){
+    if(window.mode!=='test'||window.testFinished)return;
+    (window.states||[]).forEach((s,n)=>{
+      if(!s)return;
+      if(s.selected){s.checked=true;s.palStatus=s.selected===getAns(window.rows[n])?'correct':'wrong';}
+      else{s.checked=true;s.palStatus='skip';}
+    });
+    window.testFinished=true;
+    try{if(typeof stop==='function')stop(true)}catch(e){}
+    window.render(); stats();
+    resultBox().scrollIntoView({behavior:'smooth',block:'center'});
+  };
+  window.prev=function(){if(window.testFinished)return;if(window.i>0){window.i--;window.render();}};
+  window.next=function(){if(window.testFinished)return;if(window.i<window.rows.length-1 && window.canGo(window.i+1)){window.i++;window.render();}};
+  window.skip=function(){if(window.testFinished)return;if(window.i<window.rows.length-1){let s=window.states[window.i];if(window.mode==='study'&&!s.checked)s.palStatus='skip';if(window.mode==='test'&&!s.selected)s.palStatus='skip';if(window.canGo(window.i+1)){window.i++;window.render();}}};
+  window.render=function(){
+    if(!Array.isArray(window.rows)||!window.rows.length)return;
+    if(window.i>=10 && typeof window.php10AllowNext==='function' && !window.php10AllowNext()){window.i=9;return;}
+    if(window.i>=30 && typeof window.phpSubAllowNext==='function' && !window.phpSubAllowNext()){window.i=29;return;}
+    const r=window.rows[window.i], s=window.states[window.i] || (window.states[window.i]={selected:null,checked:false,one:false,palStatus:null});
+    const q=document.getElementById('q'),desc=document.getElementById('desc'),opts=document.getElementById('opts'),msg=document.getElementById('msg'),num=document.getElementById('num'),pal=document.getElementById('pal');
+    if(!q||!opts||!desc)return;
+    q.textContent=(window.i+1)+'. '+r.q;
+    document.getElementById('php-selected-action')?.remove();
+    let sa=document.createElement('div');sa.id='php-selected-action';sa.className='php-selected-wrap';sa.innerHTML='<button class="php-selected-btn" id="phpSelectedBtn" onclick="PHPSEL_toggle()">⭐ इस प्रश्न को Selected करें</button>';q.parentNode.insertBefore(sa,q.nextSibling);
+    if(window.PHPSEL_refresh)window.PHPSEL_refresh();
+    desc.innerHTML=window.mode==='test'?'':(r.desc?'<div class="desc"><h3>📖 Description / व्याख्या</h3>'+r.desc+'</div>':'');
+    opts.innerHTML='';msg.textContent='';
+    if(window.mode==='one'){
+      if(s.one){let o={A:r.a,B:r.b,C:r.c,D:r.d};opts.innerHTML='<div class="desc"><h3>उत्तर: '+o[getAns(r)]+'</h3></div>';}
+      else{let b=document.createElement('button');b.className='opt';b.textContent='उत्तर देखने के लिए क्लिक करें';b.onclick=()=>{s.one=true;window.render()};opts.appendChild(b);}
+    }else{
+      [['A',r.a],['B',r.b],['C',r.c],['D',r.d]].forEach(([x,t])=>{let b=document.createElement('button');b.className='opt';b.textContent=x+') '+t;if(s.selected===x)b.classList.add(s.checked?(x===getAns(r)?'correct':'wrong'):'selected');if(s.checked&&x===getAns(r))b.classList.add('correct');b.onclick=()=>window.choose(x);if((window.mode==='study'&&s.checked)||window.testFinished)b.disabled=true;opts.appendChild(b);});
+      if(window.mode==='test'&&!window.testFinished&&window.i===window.rows.length-1){let b=document.createElement('button');b.className='submit';b.textContent='✅ Submit Test';b.onclick=window.submitTest;opts.appendChild(b);}
+    }
+    if(s.checked&&window.mode==='study')msg.textContent=s.selected===getAns(r)?'✓ सही उत्तर':'✗ गलत उत्तर';
+    num.textContent='प्रश्न '+(window.i+1)+' / '+window.rows.length;
+    pal.innerHTML='';window.rows.forEach((_,n)=>{let b=document.createElement('button');b.textContent=n+1;let ts=window.states[n]||{};if(window.mode==='study'){if(ts.palStatus==='correct')b.classList.add('study-correct');else if(ts.palStatus==='wrong')b.classList.add('study-wrong');else if(ts.palStatus==='skip')b.classList.add('study-skip');}else if(window.mode==='test'){if(ts.palStatus==='wrong')b.classList.add('test-wrong');else if(ts.palStatus==='correct')b.classList.add('test-correct');else if(ts.palStatus==='skip')b.classList.add('test-skip');else if(ts.selected)b.classList.add('test-answered');else b.classList.add('test-unsolved');}if(n===window.i)b.classList.add('cur');b.onclick=()=>{if(!window.testFinished&&window.canGo(n)){window.i=n;window.render();}};pal.appendChild(b);});
+    stats();
+  };
+  // Make the result container available without showing it.
+  const e=resultBox();e.style.display='none';
+})();
+</script>
 </body></html>
