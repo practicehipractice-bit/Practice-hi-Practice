@@ -7,7 +7,7 @@ html{font-size:16px}*{box-sizing:border-box}img{max-width:100%;height:auto}body{
  body{font-size:15px}.wrap{padding:10px}.card{padding:14px;border-radius:10px}.card h2{font-size:21px;line-height:1.25}header{padding:14px 10px}header h1{font-size:26px;line-height:1.15}.q{font-size:19px;line-height:1.45}.opt{font-size:16px;padding:12px 11px;margin:8px 0;min-height:48px}.modes,nav{gap:6px}.modes button,nav button,.btn{flex:1 1 auto;padding:11px 10px;font-size:14px}.grid{grid-template-columns:1fr 1fr!important;gap:8px}.set{padding:12px}.set h3{font-size:16px}.timer-running{padding:9px 10px!important;margin:7px 0!important}.timer-running .time{font-size:16px;}.timer-left{min-width:0!important;width:100%}.timer-result{font-size:16px;}.timer-row{flex-direction:column;align-items:stretch}.timer-row label{width:100%;font-size:16px;}.timer-row input{width:90px!important}.desc{padding:11px}.pal button{width:36px;min-width:36px;padding:8px 4px}
 }
 @media (max-width:420px){.grid{grid-template-columns:1fr!important}.q{font-size:18px}.card{padding:11px}.modes button,nav button{font-size:13px}.timer-title{font-size:16px;}.timer-running .time{font-size:16px;}}
-</style><style id="php-selected-style">.php-selected-wrap{margin:10px 0}.php-selected-btn{border:1px solid #f0b400;background:#fff8d9;color:#7a5600;border-radius:8px;padding:8px 12px;font-weight:800;cursor:pointer}.php-selected-btn.selected{background:#f0b400;color:#fff}</style></head><body>
+</style></head><body>
 
 <div class="horizon-computer-ad" style="margin:16px 0;padding:16px 20px;border-radius:12px;border:2px solid #2563eb;background:linear-gradient(135deg,#eff6ff,#ffffff);">
   <div style="display:grid;grid-template-columns:1.25fr .9fr;gap:20px;align-items:center;text-align:left;">
@@ -32,10 +32,10 @@ html{font-size:16px}*{box-sizing:border-box}img{max-width:100%;height:auto}body{
 </div>
   <style>@media(max-width:700px){.horizon-computer-ad>div:first-child{grid-template-columns:1fr!important}.horizon-computer-ad>div:first-child>div:nth-child(2){border-left:0!important;border-top:2px solid #d5e3f7;padding-left:0!important;padding-top:12px}}</style>
 </div>
-<header><h1>Practice Hi Practice</h1><div>अभ्यास ही सफलता की कुंजी है।</div></header><div class="wrap"><div class="card"><a class="btn" href="../index.html">← Home</a><a class="btn" href="../selected-questions.html">⭐ Selected Questions</a><h2>MCQ Practice – Set 14</h2><div class="modes"><button class="mode active" onclick="setMode('study',this)">Study Mode</button><button class="mode" onclick="setMode('test',this)">Test Mode</button><button class="mode" onclick="setMode('one',this)">One-liner</button></div></div><div class="card"><div id="q" class="q"></div><div id="opts"></div><div id="msg" class="msg"></div><div id="desc"></div><nav><button onclick="prev()">← पिछला</button><button class="skip" onclick="skip()">Skip</button><button onclick="next()">अगला →</button></nav><div id="num" class="num"></div><div id="pal" class="pal"></div></div></div><script>
+<header><h1>Practice Hi Practice</h1><div>अभ्यास ही सफलता की कुंजी है।</div></header><div class="wrap"><div class="card"><a class="btn" href="../index.html">← Home</a><h2>MCQ Practice – Set 14</h2><div class="modes"><button class="mode active" onclick="setMode('study',this)">Study Mode</button><button class="mode" onclick="setMode('test',this)">Test Mode</button><button class="mode" onclick="setMode('one',this)">One-liner</button></div></div><div class="card"><div id="q" class="q"></div><div id="opts"></div><div id="msg" class="msg"></div><div id="desc"></div><nav><button onclick="prev()">← पिछला</button><button class="skip" onclick="skip()">Skip</button><button onclick="next()">अगला →</button></nav><div id="num" class="num"></div><div id="pal" class="pal"></div></div></div><script>
 let rows=[];
 function freshState(){return {selected:null,checked:false,one:false,palStatus:null};}let i=0,mode='study',sel=null,states=rows.map(()=>({selected:null,checked:false,one:false,palStatus:null}));
-function st(){return states[i]} function ans(r){return r.ans} function setMode(m,b){testFinished=false;mode=m;testFinished=false;document.querySelectorAll('.mode').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()}
+function st(){return states[i]} function ans(r){return r.ans} function setMode(m,b){mode=m;document.querySelectorAll('.mode').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()}
 
 function updateTestStats(){
   let e=document.getElementById('test-result');
@@ -51,19 +51,10 @@ function updateTestStats(){
   e.innerHTML='<b>Total Marks Obtained: '+totalObtained.toFixed(2)+'</b> &nbsp; | &nbsp; <b>Total Marks Minus: '+totalMinus.toFixed(2)+'</b> &nbsp; | &nbsp; <b>Nett Obtained Marks: '+net.toFixed(2)+'</b><br>Correct: '+correct+' &nbsp; | &nbsp; Wrong: '+wrong+' &nbsp; | &nbsp; Solved: '+answered+' &nbsp; | &nbsp; Skipped: '+skip+' &nbsp; | &nbsp; Not Solved: '+Math.max(0,ss.length-answered-skip);
 }
 
-const PHPSEL_KEY='PHP_SELECTED_QUESTIONS_V1';
-function PHPSEL_load(){try{return JSON.parse(localStorage.getItem(PHPSEL_KEY)||'[]')}catch(e){return[]}}
-function PHPSEL_save(a){localStorage.setItem(PHPSEL_KEY,JSON.stringify(a))}
-function PHPSEL_id(r){return String(r.q||'').trim()}
-function PHPSEL_toggle(){if(!rows.length)return;let r=rows[i],a=PHPSEL_load(),id=PHPSEL_id(r),n=a.findIndex(x=>PHPSEL_id(x)===id);if(n>=0){a.splice(n,1)}else{a.push({q:r.q,a:r.a,b:r.b,c:r.c,d:r.d,ans:r.ans,subject:r.subject||'',desc:r.desc||'',setNo:(window.PHP_SET_CONFIG&&window.PHP_SET_CONFIG.setNo)||'',topicName:(window.PHP_SET_CONFIG&&window.PHP_SET_CONFIG.topicName)||''})}PHPSEL_save(a);PHPSEL_refresh()}
-function PHPSEL_refresh(){let b=document.getElementById('phpSelectedBtn');if(!b||!rows.length)return;let id=PHPSEL_id(rows[i]),yes=PHPSEL_load().some(x=>PHPSEL_id(x)===id);b.textContent=yes?'⭐ Selected है — हटाने के लिए क्लिक करें':'⭐ इस प्रश्न को Selected करें';b.classList.toggle('selected',yes)}
-function render(){
- if(typeof i!=='undefined' && i>=10 && window.php10AllowNext && !window.php10AllowNext()){i=9;}
- if(typeof i!=='undefined' && i>=30 && window.phpSubAllowNext && !window.phpSubAllowNext()){i=29;}
-let r=rows[i],s=st();q.textContent=(i+1)+'. '+r.q;document.getElementById('php-selected-action')?.remove();let sa=document.createElement('div');sa.id='php-selected-action';sa.className='php-selected-wrap';sa.innerHTML='<button class="php-selected-btn" id="phpSelectedBtn" onclick="PHPSEL_toggle()">⭐ इस प्रश्न को Selected करें</button>';q.parentNode.insertBefore(sa,q.nextSibling);PHPSEL_refresh();desc.innerHTML=r.desc?'<div class="desc"><h3>📖 Description / व्याख्या</h3>'+r.desc+'</div>':'';opts.innerHTML='';msg.textContent='';
-if(mode==='one'){if(s.one){let o={A:r.a,B:r.b,C:r.c,D:r.d};opts.innerHTML='<div class="desc"><h3>उत्तर: '+o[ans(r)]+'</h3></div>'}else{let b=document.createElement('button');b.className='opt';b.textContent='उत्तर देखने के लिए क्लिक करें';b.onclick=()=>{s.one=true;render()};opts.appendChild(b)}}else{[['A',r.a],['B',r.b],['C',r.c],['D',r.d]].forEach(([x,t])=>{let b=document.createElement('button');b.className='opt';b.textContent=x+') '+t;if(s.selected===x)b.classList.add(s.checked?(x===ans(r)?'correct':'wrong'):'selected');if(s.checked&&x===ans(r))b.classList.add('correct');b.onclick=()=>choose(x);if(s.checked)b.disabled=true;opts.appendChild(b)});if(mode==='test'&&!testFinished){let b=document.createElement('button');b.className='submit';b.textContent='Submit Test (पूरा Test जमा करें)';b.onclick=submitTest;opts.appendChild(b)}}
-if(s.checked&&mode!=='one')msg.textContent=s.selected===ans(r)?'✓ सही उत्तर':'✗ गलत उत्तर';num.textContent='प्रश्न '+(i+1)+' / 100';pal.innerHTML='';rows.forEach((_,n)=>{let b=document.createElement('button');b.textContent=n+1;if(mode==='study'){let p=states[n].palStatus;if(p==='correct')b.classList.add('study-correct');else if(p==='wrong')b.classList.add('study-wrong');else if(p==='skip')b.classList.add('study-skip')}if(n===i)b.classList.add('cur');b.onclick=()=>{if(testFinished)return;if(n>=10 && !window.php10AllowNext())return;i=n;render()};pal.appendChild(b)})}
-function choose(x){let s=st();if(s.checked||testFinished)return;if(mode==='study'){s.selected=x;s.checked=true;s.palStatus=x===ans(rows[i])?'correct':'wrong';render()}else{s.selected=x;sel=x;render()}} function submitTest(){if(mode!=='test'||testFinished)return;let ss=states||[];ss.forEach((s,n)=>{if(!s)return;if(s.selected){s.checked=true;s.palStatus=(s.selected===ans(rows[n]))?'correct':'wrong';}else if(!s.checked){s.palStatus='skip';}});testFinished=true;try{if(typeof stop==='function')stop(true)}catch(e){};render();let e=document.getElementById('test-result');if(e)e.scrollIntoView({behavior:'smooth',block:'center'});alert('पूरा Test Submit हो गया। नीचे Result देखें।')} function skip(){if(testFinished)return;let s=st();if(mode==='study'&&!s.checked)s.palStatus='skip';if(i<99)i++;render()} function next(){if(testFinished)return;if(i<99)i++;render()} function prev(){if(testFinished)return;if(i>0)i--;render()} render();</script>
+function render(){let r=rows[i],s=st();q.textContent=(i+1)+'. '+r.q;desc.innerHTML=r.desc?'<div class="desc"><h3>📖 Description / व्याख्या</h3>'+r.desc+'</div>':'';opts.innerHTML='';msg.textContent='';
+if(mode==='one'){if(s.one){let o={A:r.a,B:r.b,C:r.c,D:r.d};opts.innerHTML='<div class="desc"><h3>उत्तर: '+o[ans(r)]+'</h3></div>'}else{let b=document.createElement('button');b.className='opt';b.textContent='उत्तर देखने के लिए क्लिक करें';b.onclick=()=>{s.one=true;render()};opts.appendChild(b)}}else{[['A',r.a],['B',r.b],['C',r.c],['D',r.d]].forEach(([x,t])=>{let b=document.createElement('button');b.className='opt';b.textContent=x+') '+t;if(s.selected===x)b.classList.add(s.checked?(x===ans(r)?'correct':'wrong'):'selected');if(s.checked&&x===ans(r))b.classList.add('correct');b.onclick=()=>choose(x);if(s.checked)b.disabled=true;opts.appendChild(b)});if(mode==='test'){let b=document.createElement('button');b.className='submit';b.textContent='Submit';b.onclick=submit;if(s.checked)b.disabled=true;opts.appendChild(b)}}
+if(s.checked&&mode!=='one')msg.textContent=s.selected===ans(r)?'✓ सही उत्तर':'✗ गलत उत्तर';num.textContent='प्रश्न '+(i+1)+' / 100';pal.innerHTML='';rows.forEach((_,n)=>{let b=document.createElement('button');b.textContent=n+1;if(mode==='study'){let p=states[n].palStatus;if(p==='correct')b.classList.add('study-correct');else if(p==='wrong')b.classList.add('study-wrong');else if(p==='skip')b.classList.add('study-skip')}if(n===i)b.classList.add('cur');b.onclick=()=>{i=n;render()};pal.appendChild(b)})}
+function choose(x){let s=st();if(s.checked)return;if(mode==='study'){s.selected=x;s.checked=true;s.palStatus=x===ans(rows[i])?'correct':'wrong';render()}else{s.selected=x;sel=x;render()}} function submit(){let s=st();if(!s.selected){msg.textContent='पहले उत्तर चुनें।';return}s.checked=true;s.palStatus=null;sel=null;render()} function skip(){let s=st();if(mode==='study'&&!s.checked)s.palStatus='skip';if(i<99)i++;render()} function next(){if(i<99)i++;render()} function prev(){if(i>0)i--;render()} render();</script>
 <div id="php-timer-setup" style="display:none;background:#fff7d6;border:1px solid #e0bd45;border-radius:12px;padding:14px;margin:12px 0">
   <div style="font-weight:700;margin-bottom:10px">Test Mode Timer</div>
   <label style="margin-right:16px"><input type="radio" name="phpTimerType" value="question" checked> प्रति Question Timer</label>
@@ -241,197 +232,6 @@ const sc=document.createElement('script');
 sc.src='https://docs.google.com/spreadsheets/d/'+SETLIST_ID+'/gviz/tq?pub=1&gid=0&sheet=Sheet1&tq='+encodeURIComponent('select * where A = '+SET_NO)+'&tqx='+encodeURIComponent('responseHandler:phpSet'+SET_NO+'SetlistCallback');
 sc.onerror=function(){if(status)status.textContent='SETLIST access नहीं हो सका। SETLIST को web पर publish/public करना होगा।';};
 document.head.appendChild(sc);
-})();
-</script>
-
-<!-- 10-question Mobile + OTP gate -->
-<style>
-#php10Gate{display:none;position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:99999;align-items:center;justify-content:center;padding:18px;box-sizing:border-box}
-#php10Gate .box{background:#fff;max-width:420px;width:100%;border-radius:16px;padding:22px;box-shadow:0 10px 40px #0005;font-family:Arial,sans-serif}
-#php10Gate h2{margin:0 0 10px;color:#1756a6;font-size:22px}
-#php10Gate p{line-height:1.5;margin:8px 0}
-#php10Gate input{width:100%;box-sizing:border-box;padding:12px;margin:7px 0;border:1px solid #bbb;border-radius:8px;font-size:16px}
-#php10Gate button{padding:11px 17px;border:0;border-radius:8px;cursor:pointer;margin-top:8px;font-weight:700}
-#php10Gate .primary{background:#1756a6;color:#fff;width:100%}
-#php10Gate .msg{min-height:22px;color:#c62828;font-weight:700;margin-top:8px}
-</style>
-<div id="php10Gate">
- <div class="box">
-  <h2>🔐 आगे Practice जारी रखें</h2>
-  <p id="php10GateText">पहले 10 Questions पूरे हो गए हैं। Question 11 से आगे जाने के लिए Mobile Number verify करें।</p>
-  <input id="php10Mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10 अंकों का Mobile Number">
-  <input id="php10Otp" type="tel" inputmode="numeric" maxlength="6" placeholder="OTP" style="display:none">
-  <button id="php10Btn" class="primary" type="button">Send OTP</button>
-  <div id="php10Msg" class="msg"></div>
-  <p id="php10TestNote" style="font-size:13px;color:#666">अभी TEST OTP: 123456 है। बाद में इसे वास्तविक SMS OTP से जोड़ा जाएगा।</p>
- </div>
-</div>
-<script>
-(function(){
- var verifiedKey='PHP10_MOBILE_VERIFIED_V1';
- function verified(){try{return localStorage.getItem(verifiedKey)==='1'}catch(e){return false}}
- function openGate(){
-   if(verified()) return true;
-   var g=document.getElementById('php10Gate'); if(!g)return false;
-   g.style.display='flex';
-   document.getElementById('php10Mobile').focus();
-   return false;
- }
- window.php10AllowNext=function(){if(!verified()){return openGate()} if(typeof i!=='undefined' && i>=29 && window.phpSubAllowNext){return window.phpSubAllowNext()} return true}
- window.php10Verify=function(){try{localStorage.setItem(verifiedKey,'1')}catch(e){};document.getElementById('php10Gate').style.display='none';}
- var btn=document.getElementById('php10Btn'), mob=document.getElementById('php10Mobile'), otp=document.getElementById('php10Otp'), msg=document.getElementById('php10Msg');
- btn.onclick=function(){
-   var m=(mob.value||'').replace(/\D/g,'');
-   if(!/^[6-9]\d{9}$/.test(m)){msg.textContent='कृपया सही 10 अंकों का Mobile Number डालें।';return;}
-   mob.disabled=true; otp.style.display='block'; otp.focus(); btn.textContent='Verify OTP'; msg.style.color='#1756a6'; msg.textContent='TEST OTP भेजा गया: 123456';
-   btn.onclick=function(){if((otp.value||'').trim()!=='123456'){msg.style.color='#c62828';msg.textContent='OTP गलत है। TEST OTP 123456 डालें।';return;} php10Verify();};
- };
- window.php10GateReady=true;
-})();
-</script>
-
-
-<!-- Subscription gate after 30 questions -->
-<style>
-#phpSubGate{display:none;position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:100000;align-items:center;justify-content:center;padding:18px;box-sizing:border-box}
-#phpSubGate .box{background:#fff;max-width:470px;width:100%;border-radius:16px;padding:22px;box-shadow:0 10px 40px #0005;font-family:Arial,sans-serif}
-#phpSubGate h2{margin:0 0 8px;color:#1756a6;font-size:22px}
-#phpSubGate p{line-height:1.5;margin:8px 0}
-.php-plan{display:block;width:100%;text-align:left;background:#f4f7fb;color:#173b78;border:1px solid #d4deed;border-radius:10px;padding:13px;margin:9px 0;font-weight:700;cursor:pointer}
-.php-plan:hover{background:#e8f0fb}.php-plan small{display:block;font-weight:400;color:#5f6b7a;margin-top:3px}
-#phpSubPay{display:none;text-align:center}.php-price{font-size:28px;font-weight:800;margin:14px}.php-pay{background:#1756a6;color:#fff;border:0;border-radius:9px;padding:12px 20px;font-weight:700;cursor:pointer}
-#phpSubMsg{min-height:22px;color:#c62828;font-weight:700;margin-top:10px}
-</style>
-<div id="phpSubGate">
- <div class="box">
-  <h2>🔓 Full Practice Unlock करें</h2>
-  <p>आपने 30 Questions का FREE Practice पूरा कर लिया है। आगे के Questions के लिए Subscription Plan चुनें।</p>
-  <div id="phpSubPlans">
-   <button class="php-plan" data-plan="1 Month" data-price="99">1 Month — ₹99 <small>पूरे Practice Set का access</small></button>
-   <button class="php-plan" data-plan="3 Months" data-price="199">3 Months — ₹199 <small>पूरे Practice Set का access</small></button>
-   <button class="php-plan" data-plan="1 Year" data-price="499">1 Year — ₹499 <small>पूरे Practice Set का access</small></button>
-  </div>
-  <div id="phpSubPay"><div>आपने चुना:</div><div id="phpSubPlan" style="font-weight:800"></div><div id="phpSubPrice" class="php-price"></div><button id="phpSubPayBtn" class="php-pay" type="button">Payment करें</button></div>
-  <div id="phpSubMsg"></div>
-  <p style="font-size:12px;color:#777">अभी payment TEST mode में है। Real payment gateway बाद में जोड़ा जाएगा।</p>
- </div>
-</div>
-<script>
-(function(){
- var subKey='PHP_SUBSCRIPTION_UNLOCKED_V1';
- var selectedPlan='', selectedPrice='';
- function unlocked(){try{return localStorage.getItem(subKey)==='1'}catch(e){return false}}
- function openSub(){
-   if(unlocked()) return true;
-   var g=document.getElementById('phpSubGate'); if(!g)return false;
-   g.style.display='flex'; document.getElementById('phpSubPlans').style.display='block'; document.getElementById('phpSubPay').style.display='none'; document.getElementById('phpSubMsg').textContent='';
-   return false;
- }
- window.phpSubAllowNext=function(){return openSub()};
- document.querySelectorAll('.php-plan').forEach(function(b){b.onclick=function(){
-   selectedPlan=b.getAttribute('data-plan'); selectedPrice=b.getAttribute('data-price');
-   document.getElementById('phpSubPlans').style.display='none'; document.getElementById('phpSubPay').style.display='block';
-   document.getElementById('phpSubPlan').textContent=selectedPlan; document.getElementById('phpSubPrice').textContent='₹'+selectedPrice;
- }});
- document.getElementById('phpSubPayBtn').onclick=function(){
-   try{localStorage.setItem(subKey,'1')}catch(e){}
-   document.getElementById('phpSubGate').style.display='none';
-   alert('TEST Payment सफल। Subscription Active हो गया।');
- };
- window.phpSubscriptionReady=true;
-})();
-</script>
-
-
-<script id="php-final-test-fix">
-(function(){
-  function resultBox(){
-    let e=document.getElementById('test-result');
-    if(!e){
-      e=document.createElement('div'); e.id='test-result'; e.className='test-result';
-      let p=document.getElementById('pal'); if(p&&p.parentNode)p.parentNode.insertBefore(e,p.nextSibling); else document.body.appendChild(e);
-    }
-    return e;
-  }
-  function getAns(r){return String(r&&r.ans||'').trim().toUpperCase().charAt(0)}
-  function stats(){
-    const e=resultBox();
-    if(window.mode!=='test'||!window.testFinished){e.style.display='none';e.innerHTML='';return;}
-    let correct=0,wrong=0,unanswered=0,total=Array.isArray(window.rows)?rows.length:0;
-    (window.states||[]).forEach((s,n)=>{
-      if(!s||!s.selected){unanswered++;return;}
-      if(s.selected===getAns(rows[n]))correct++; else wrong++;
-    });
-    let minus=wrong*0.25, net=correct-minus, pct=total?net/total*100:0;
-    e.style.display='block';
-    e.innerHTML='<div style="background:#f0f7ff;border:2px solid #1769e0;border-radius:12px;padding:16px;margin-top:14px;line-height:1.8"><h3 style="margin:0 0 8px;color:#1756a6">📊 पूरा Test Result</h3><div>कुल प्रश्न: <b>'+total+'</b></div><div>सही उत्तर: <b>'+correct+'</b> × 1 = <b>'+correct.toFixed(2)+'</b></div><div>गलत उत्तर: <b>'+wrong+'</b> × 0.25 = <b>−'+minus.toFixed(2)+'</b></div><div>छोड़े गए: <b>'+unanswered+'</b></div><div style="font-size:21px">Final Marks: <b>'+net.toFixed(2)+'</b> / '+total+'</div><div>Percentage: <b>'+pct.toFixed(2)+'%</b></div></div>';
-  }
-  window.updateTestStats=stats;
-  window.setMode=function(m,b){
-    window.mode=m; window.testFinished=false; window.sel=null; window.i=0;
-    document.querySelectorAll('.mode').forEach(x=>x.classList.remove('active')); if(b)b.classList.add('active');
-    try{if(typeof stop==='function')stop()}catch(e){}
-    try{if(typeof modeChanged==='function')modeChanged(m)}catch(e){}
-    if(typeof window.render==='function')window.render();
-  };
-  window.choose=function(x){
-    if(window.testFinished)return;
-    let s=window.states[window.i]; if(!s)return;
-    if(window.mode==='study'){
-      if(s.checked)return; s.selected=x;s.checked=true;s.palStatus=x===getAns(window.rows[window.i])?'correct':'wrong';
-    } else if(window.mode==='test'){
-      if(s.selected)return; s.selected=x;s.checked=false;s.palStatus='answered';
-    }
-    window.render();
-  };
-  window.canGo=function(n){
-    if(n<0||n>=window.rows.length)return false;
-    if(n>=10 && typeof window.php10AllowNext==='function' && !window.php10AllowNext())return false;
-    if(n>=30 && typeof window.phpSubAllowNext==='function' && !window.phpSubAllowNext())return false;
-    return true;
-  };
-  window.submitTest=function(){
-    if(window.mode!=='test'||window.testFinished)return;
-    (window.states||[]).forEach((s,n)=>{
-      if(!s)return;
-      if(s.selected){s.checked=true;s.palStatus=s.selected===getAns(window.rows[n])?'correct':'wrong';}
-      else{s.checked=true;s.palStatus='skip';}
-    });
-    window.testFinished=true;
-    try{if(typeof stop==='function')stop(true)}catch(e){}
-    window.render(); stats();
-    resultBox().scrollIntoView({behavior:'smooth',block:'center'});
-  };
-  window.prev=function(){if(window.testFinished)return;if(window.i>0){window.i--;window.render();}};
-  window.next=function(){if(window.testFinished)return;if(window.i<window.rows.length-1 && window.canGo(window.i+1)){window.i++;window.render();}};
-  window.skip=function(){if(window.testFinished)return;if(window.i<window.rows.length-1){let s=window.states[window.i];if(window.mode==='study'&&!s.checked)s.palStatus='skip';if(window.mode==='test'&&!s.selected)s.palStatus='skip';if(window.canGo(window.i+1)){window.i++;window.render();}}};
-  window.render=function(){
-    if(!Array.isArray(window.rows)||!window.rows.length)return;
-    if(window.i>=10 && typeof window.php10AllowNext==='function' && !window.php10AllowNext()){window.i=9;return;}
-    if(window.i>=30 && typeof window.phpSubAllowNext==='function' && !window.phpSubAllowNext()){window.i=29;return;}
-    const r=window.rows[window.i], s=window.states[window.i] || (window.states[window.i]={selected:null,checked:false,one:false,palStatus:null});
-    const q=document.getElementById('q'),desc=document.getElementById('desc'),opts=document.getElementById('opts'),msg=document.getElementById('msg'),num=document.getElementById('num'),pal=document.getElementById('pal');
-    if(!q||!opts||!desc)return;
-    q.textContent=(window.i+1)+'. '+r.q;
-    document.getElementById('php-selected-action')?.remove();
-    let sa=document.createElement('div');sa.id='php-selected-action';sa.className='php-selected-wrap';sa.innerHTML='<button class="php-selected-btn" id="phpSelectedBtn" onclick="PHPSEL_toggle()">⭐ इस प्रश्न को Selected करें</button>';q.parentNode.insertBefore(sa,q.nextSibling);
-    if(window.PHPSEL_refresh)window.PHPSEL_refresh();
-    desc.innerHTML=window.mode==='test'?'':(r.desc?'<div class="desc"><h3>📖 Description / व्याख्या</h3>'+r.desc+'</div>':'');
-    opts.innerHTML='';msg.textContent='';
-    if(window.mode==='one'){
-      if(s.one){let o={A:r.a,B:r.b,C:r.c,D:r.d};opts.innerHTML='<div class="desc"><h3>उत्तर: '+o[getAns(r)]+'</h3></div>';}
-      else{let b=document.createElement('button');b.className='opt';b.textContent='उत्तर देखने के लिए क्लिक करें';b.onclick=()=>{s.one=true;window.render()};opts.appendChild(b);}
-    }else{
-      [['A',r.a],['B',r.b],['C',r.c],['D',r.d]].forEach(([x,t])=>{let b=document.createElement('button');b.className='opt';b.textContent=x+') '+t;if(s.selected===x)b.classList.add(s.checked?(x===getAns(r)?'correct':'wrong'):'selected');if(s.checked&&x===getAns(r))b.classList.add('correct');b.onclick=()=>window.choose(x);if((window.mode==='study'&&s.checked)||window.testFinished)b.disabled=true;opts.appendChild(b);});
-      if(window.mode==='test'&&!window.testFinished&&window.i===window.rows.length-1){let b=document.createElement('button');b.className='submit';b.textContent='✅ Submit Test';b.onclick=window.submitTest;opts.appendChild(b);}
-    }
-    if(s.checked&&window.mode==='study')msg.textContent=s.selected===getAns(r)?'✓ सही उत्तर':'✗ गलत उत्तर';
-    num.textContent='प्रश्न '+(window.i+1)+' / '+window.rows.length;
-    pal.innerHTML='';window.rows.forEach((_,n)=>{let b=document.createElement('button');b.textContent=n+1;let ts=window.states[n]||{};if(window.mode==='study'){if(ts.palStatus==='correct')b.classList.add('study-correct');else if(ts.palStatus==='wrong')b.classList.add('study-wrong');else if(ts.palStatus==='skip')b.classList.add('study-skip');}else if(window.mode==='test'){if(ts.palStatus==='wrong')b.classList.add('test-wrong');else if(ts.palStatus==='correct')b.classList.add('test-correct');else if(ts.palStatus==='skip')b.classList.add('test-skip');else if(ts.selected)b.classList.add('test-answered');else b.classList.add('test-unsolved');}if(n===window.i)b.classList.add('cur');b.onclick=()=>{if(!window.testFinished&&window.canGo(n)){window.i=n;window.render();}};pal.appendChild(b);});
-    stats();
-  };
-  // Make the result container available without showing it.
-  const e=resultBox();e.style.display='none';
 })();
 </script>
 </body></html>
