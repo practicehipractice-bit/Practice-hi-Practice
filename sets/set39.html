@@ -274,7 +274,7 @@ document.head.appendChild(sc);
    document.getElementById('php10Mobile').focus();
    return false;
  }
- window.php10AllowNext=function(){return openGate()}
+ window.php10AllowNext=function(){if(!verified()){return openGate()} if(typeof i!=='undefined' && i>=29 && window.phpSubAllowNext){return window.phpSubAllowNext()} return true}
  window.php10Verify=function(){try{localStorage.setItem(verifiedKey,'1')}catch(e){};document.getElementById('php10Gate').style.display='none';}
  var btn=document.getElementById('php10Btn'), mob=document.getElementById('php10Mobile'), otp=document.getElementById('php10Otp'), msg=document.getElementById('php10Msg');
  btn.onclick=function(){
@@ -284,6 +284,58 @@ document.head.appendChild(sc);
    btn.onclick=function(){if((otp.value||'').trim()!=='123456'){msg.style.color='#c62828';msg.textContent='OTP गलत है। TEST OTP 123456 डालें।';return;} php10Verify();};
  };
  window.php10GateReady=true;
+})();
+</script>
+
+
+<!-- Subscription gate after 30 questions -->
+<style>
+#phpSubGate{display:none;position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:100000;align-items:center;justify-content:center;padding:18px;box-sizing:border-box}
+#phpSubGate .box{background:#fff;max-width:470px;width:100%;border-radius:16px;padding:22px;box-shadow:0 10px 40px #0005;font-family:Arial,sans-serif}
+#phpSubGate h2{margin:0 0 8px;color:#1756a6;font-size:22px}
+#phpSubGate p{line-height:1.5;margin:8px 0}
+.php-plan{display:block;width:100%;text-align:left;background:#f4f7fb;color:#173b78;border:1px solid #d4deed;border-radius:10px;padding:13px;margin:9px 0;font-weight:700;cursor:pointer}
+.php-plan:hover{background:#e8f0fb}.php-plan small{display:block;font-weight:400;color:#5f6b7a;margin-top:3px}
+#phpSubPay{display:none;text-align:center}.php-price{font-size:28px;font-weight:800;margin:14px}.php-pay{background:#1756a6;color:#fff;border:0;border-radius:9px;padding:12px 20px;font-weight:700;cursor:pointer}
+#phpSubMsg{min-height:22px;color:#c62828;font-weight:700;margin-top:10px}
+</style>
+<div id="phpSubGate">
+ <div class="box">
+  <h2>🔓 Full Practice Unlock करें</h2>
+  <p>आपने 30 Questions का FREE Practice पूरा कर लिया है। आगे के Questions के लिए Subscription Plan चुनें।</p>
+  <div id="phpSubPlans">
+   <button class="php-plan" data-plan="1 Month" data-price="99">1 Month — ₹99 <small>पूरे Practice Set का access</small></button>
+   <button class="php-plan" data-plan="3 Months" data-price="199">3 Months — ₹199 <small>पूरे Practice Set का access</small></button>
+   <button class="php-plan" data-plan="1 Year" data-price="499">1 Year — ₹499 <small>पूरे Practice Set का access</small></button>
+  </div>
+  <div id="phpSubPay"><div>आपने चुना:</div><div id="phpSubPlan" style="font-weight:800"></div><div id="phpSubPrice" class="php-price"></div><button id="phpSubPayBtn" class="php-pay" type="button">Payment करें</button></div>
+  <div id="phpSubMsg"></div>
+  <p style="font-size:12px;color:#777">अभी payment TEST mode में है। Real payment gateway बाद में जोड़ा जाएगा।</p>
+ </div>
+</div>
+<script>
+(function(){
+ var subKey='PHP_SUBSCRIPTION_UNLOCKED_V1';
+ var selectedPlan='', selectedPrice='';
+ function unlocked(){try{return localStorage.getItem(subKey)==='1'}catch(e){return false}}
+ function openSub(){
+   if(unlocked()) return true;
+   var g=document.getElementById('phpSubGate'); if(!g)return false;
+   g.style.display='flex'; document.getElementById('phpSubPlans').style.display='block'; document.getElementById('phpSubPay').style.display='none'; document.getElementById('phpSubMsg').textContent='';
+   return false;
+ }
+ window.phpSubAllowNext=function(){return openSub()};
+ document.querySelectorAll('.php-plan').forEach(function(b){b.onclick=function(){
+   selectedPlan=b.getAttribute('data-plan'); selectedPrice=b.getAttribute('data-price');
+   document.getElementById('phpSubPlans').style.display='none'; document.getElementById('phpSubPay').style.display='block';
+   document.getElementById('phpSubPlan').textContent=selectedPlan; document.getElementById('phpSubPrice').textContent='₹'+selectedPrice;
+ }});
+ document.getElementById('phpSubPayBtn').onclick=function(){
+   try{localStorage.setItem(subKey,'1')}catch(e){}
+   document.getElementById('phpSubGate').style.display='none';
+   alert('TEST Payment सफल। Subscription Active हो गया।');
+ };
+ window.phpSubscriptionReady=true;
 })();
 </script>
 
