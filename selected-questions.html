@@ -1,6 +1,6 @@
 <!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Selected Questions - Practice Hi Practice</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#f4f7fb;color:#172033}header{background:linear-gradient(135deg,#173b78,#2457a6);color:#fff;padding:24px 16px;text-align:center}header h1{margin:0;font-size:34px}header p{margin:8px 0 0;font-size:16px}.tag{font-weight:700;color:#ffe082}nav{background:#fff;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:10px;box-shadow:0 2px 8px #0001;position:sticky;top:0;z-index:5}nav a{padding:9px 13px;text-decoration:none;color:#173b78;font-weight:700;border-radius:8px}nav a:hover{background:#edf3ff}.wrap{max-width:1000px;margin:20px auto;padding:0 14px}.card{background:#fff;border-radius:14px;box-shadow:0 4px 18px #0001;padding:18px;margin-bottom:16px}.top{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.btn{display:inline-block;border:0;border-radius:8px;padding:10px 14px;background:#1756a6;color:#fff;text-decoration:none;font-weight:800;cursor:pointer}.btn.red{background:#b91c1c}.btn.green{background:#16834b}.count{font-weight:900;font-size:18px;margin-left:auto}.qitem{border:1px solid #dbe2ea;border-radius:12px;padding:14px;margin:12px 0;background:#fafcff}.qtitle{font-weight:900;margin-bottom:8px}.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px}.opt{padding:9px;background:#fff;border:1px solid #d8dee8;border-radius:7px}.meta{font-size:13px;color:#5b6575;margin-top:8px}.empty{text-align:center;padding:35px 10px;color:#667085;font-weight:700}@media(max-width:650px){.opts{grid-template-columns:1fr}.count{width:100%;margin-left:0}}
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script></head><body>
+</head><body>
 <div class="horizon-computer-ad" style="margin:16px 0;padding:16px 20px;border-radius:12px;border:2px solid #2563eb;background:linear-gradient(135deg,#eff6ff,#ffffff);">
   <div style="display:grid;grid-template-columns:1.25fr .9fr;gap:20px;align-items:center;text-align:left;">
     <div>
@@ -44,11 +44,143 @@
 </nav>
 <div class="wrap"><div class="card"><div class="top"><a class="btn" href="index.html">← Home</a><button class="btn green" id="download">📥 Selected Questions Excel Download</button><button class="btn red" id="clear">🗑 सभी Selected हटाएँ</button><span class="count" id="count">0 प्रश्न</span></div></div><div class="card"><h2>⭐ Selected Questions</h2><div id="list"></div></div><script>
 const KEY='PHP_SELECTED_QUESTIONS_V1';
-function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}}
+
+function load(){
+  try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}
+}
 function save(a){localStorage.setItem(KEY,JSON.stringify(a));}
-function render(){const a=load(),list=document.getElementById('list');document.getElementById('count').textContent=a.length+' प्रश्न';if(!a.length){list.innerHTML='<div class="empty">अभी कोई प्रश्न Selected नहीं है।<br>Pre-Uploaded Set में ⭐ Select करें।</div>';return}list.innerHTML=a.map((r,i)=>`<div class="qitem"><div class="qtitle">${i+1}. ${esc(r.q)}</div><div class="opts"><div class="opt">A) ${esc(r.a)}</div><div class="opt">B) ${esc(r.b)}</div><div class="opt">C) ${esc(r.c)}</div><div class="opt">D) ${esc(r.d)}</div></div><div class="meta">सही उत्तर: ${esc(r.ans||'')} ${r.subject?' | Subject: '+esc(r.subject):''} ${r.setNo?' | Set: '+esc(String(r.setNo)):''}</div><button class="btn red" style="margin-top:9px;padding:7px 10px" onclick="removeOne(${i})">इस प्रश्न को हटाएँ</button></div>`).join('')}
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function removeOne(i){const a=load();a.splice(i,1);save(a);render()}
-document.getElementById('clear').onclick=()=>{if(confirm('क्या सभी Selected Questions हटाएँ?')){save([]);render()}};
-document.getElementById('download').onclick=()=>{const a=load();if(!a.length){alert('पहले कम-से-कम एक Question Select करें।');return}if(typeof XLSX==='undefined'){alert('Excel library load नहीं हुई। Internet चालू करके फिर प्रयास करें।');return}const data=a.map((r,i)=>({Question:r.q,'Option A':r.a,'Option B':r.b,'Option C':r.c,'Option D':r.d,'Correct Answer':r.ans||'','Subject':r.subject||'','Description':r.desc||'','Source Set':r.setNo||''}));const ws=XLSX.utils.json_to_sheet(data);ws['!cols']=[{wch:55},{wch:28},{wch:28},{wch:28},{wch:28},{wch:18},{wch:20},{wch:45},{wch:12}];const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Selected Questions');XLSX.writeFile(wb,'Practice_Hi_Practice_Selected_Questions.xlsx')};
-render();</script></body></html>
+
+function esc(v){
+  return String(v==null?'':v).replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function render(){
+  const a=load(), list=document.getElementById('list');
+  document.getElementById('count').textContent=a.length+' प्रश्न';
+  if(!a.length){
+    list.innerHTML='<div class="empty">अभी कोई प्रश्न Selected नहीं है।<br>Pre-Uploaded Set में ⭐ Select करें।</div>';
+    return;
+  }
+  list.innerHTML=a.map((r,i)=>`
+    <div class="qitem">
+      <div class="qtitle">${i+1}. ${esc(r.q)}</div>
+      <div class="opts">
+        <div class="opt">A) ${esc(r.a)}</div>
+        <div class="opt">B) ${esc(r.b)}</div>
+        <div class="opt">C) ${esc(r.c)}</div>
+        <div class="opt">D) ${esc(r.d)}</div>
+      </div>
+      <div class="meta">Answer: ${esc(r.ans)}${r.subject?' | Subject: '+esc(r.subject):''}</div>
+      ${r.desc?'<div class="meta">'+esc(r.desc)+'</div>':''}
+    </div>`).join('');
+}
+
+
+
+document.getElementById('clear').onclick=function(){
+  if(!load().length)return;
+  if(confirm('क्या सभी Selected Questions हटाएँ?')){
+    save([]);
+    render();
+  }
+};
+
+render();
+const XLSX_TEMPLATE_FILES={"docProps/app.xml": "<Properties xmlns=\"http://schemas.openxmlformats.org/officeDocument/2006/extended-properties\"><Application>Microsoft Excel Compatible / Openpyxl 3.1.5</Application><AppVersion>3.1</AppVersion></Properties>", "docProps/core.xml": "<cp:coreProperties xmlns:cp=\"http://schemas.openxmlformats.org/package/2006/metadata/core-properties\"><dc:creator xmlns:dc=\"http://purl.org/dc/elements/1.1/\">openpyxl</dc:creator><dcterms:created xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"dcterms:W3CDTF\">2026-09-11T07:26:39Z</dcterms:created><dcterms:modified xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"dcterms:W3CDTF\">2026-09-11T07:26:39Z</dcterms:modified></cp:coreProperties>", "xl/theme/theme1.xml": "<?xml version=\"1.0\"?>\n<a:theme xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" name=\"Office Theme\">\n  <a:themeElements>\n    <a:clrScheme name=\"Office\">\n      <a:dk1>\n        <a:sysClr val=\"windowText\" lastClr=\"000000\"/>\n      </a:dk1>\n      <a:lt1>\n        <a:sysClr val=\"window\" lastClr=\"FFFFFF\"/>\n      </a:lt1>\n      <a:dk2>\n        <a:srgbClr val=\"1F497D\"/>\n      </a:dk2>\n      <a:lt2>\n        <a:srgbClr val=\"EEECE1\"/>\n      </a:lt2>\n      <a:accent1>\n        <a:srgbClr val=\"4F81BD\"/>\n      </a:accent1>\n      <a:accent2>\n        <a:srgbClr val=\"C0504D\"/>\n      </a:accent2>\n      <a:accent3>\n        <a:srgbClr val=\"9BBB59\"/>\n      </a:accent3>\n      <a:accent4>\n        <a:srgbClr val=\"8064A2\"/>\n      </a:accent4>\n      <a:accent5>\n        <a:srgbClr val=\"4BACC6\"/>\n      </a:accent5>\n      <a:accent6>\n        <a:srgbClr val=\"F79646\"/>\n      </a:accent6>\n      <a:hlink>\n        <a:srgbClr val=\"0000FF\"/>\n      </a:hlink>\n      <a:folHlink>\n        <a:srgbClr val=\"800080\"/>\n      </a:folHlink>\n    </a:clrScheme>\n    <a:fontScheme name=\"Office\">\n      <a:majorFont>\n        <a:latin typeface=\"Cambria\"/>\n        <a:ea typeface=\"\"/>\n        <a:cs typeface=\"\"/>\n        <a:font script=\"Jpan\" typeface=\"&#xFF2D;&#xFF33; &#xFF30;&#x30B4;&#x30B7;&#x30C3;&#x30AF;\"/>\n        <a:font script=\"Hang\" typeface=\"&#xB9D1;&#xC740; &#xACE0;&#xB515;\"/>\n        <a:font script=\"Hans\" typeface=\"&#x5B8B;&#x4F53;\"/>\n        <a:font script=\"Hant\" typeface=\"&#x65B0;&#x7D30;&#x660E;&#x9AD4;\"/>\n        <a:font script=\"Arab\" typeface=\"Times New Roman\"/>\n        <a:font script=\"Hebr\" typeface=\"Times New Roman\"/>\n        <a:font script=\"Thai\" typeface=\"Tahoma\"/>\n        <a:font script=\"Ethi\" typeface=\"Nyala\"/>\n        <a:font script=\"Beng\" typeface=\"Vrinda\"/>\n        <a:font script=\"Gujr\" typeface=\"Shruti\"/>\n        <a:font script=\"Khmr\" typeface=\"MoolBoran\"/>\n        <a:font script=\"Knda\" typeface=\"Tunga\"/>\n        <a:font script=\"Guru\" typeface=\"Raavi\"/>\n        <a:font script=\"Cans\" typeface=\"Euphemia\"/>\n        <a:font script=\"Cher\" typeface=\"Plantagenet Cherokee\"/>\n        <a:font script=\"Yiii\" typeface=\"Microsoft Yi Baiti\"/>\n        <a:font script=\"Tibt\" typeface=\"Microsoft Himalaya\"/>\n        <a:font script=\"Thaa\" typeface=\"MV Boli\"/>\n        <a:font script=\"Deva\" typeface=\"Mangal\"/>\n        <a:font script=\"Telu\" typeface=\"Gautami\"/>\n        <a:font script=\"Taml\" typeface=\"Latha\"/>\n        <a:font script=\"Syrc\" typeface=\"Estrangelo Edessa\"/>\n        <a:font script=\"Orya\" typeface=\"Kalinga\"/>\n        <a:font script=\"Mlym\" typeface=\"Kartika\"/>\n        <a:font script=\"Laoo\" typeface=\"DokChampa\"/>\n        <a:font script=\"Sinh\" typeface=\"Iskoola Pota\"/>\n        <a:font script=\"Mong\" typeface=\"Mongolian Baiti\"/>\n        <a:font script=\"Viet\" typeface=\"Times New Roman\"/>\n        <a:font script=\"Uigh\" typeface=\"Microsoft Uighur\"/>\n      </a:majorFont>\n      <a:minorFont>\n        <a:latin typeface=\"Calibri\"/>\n        <a:ea typeface=\"\"/>\n        <a:cs typeface=\"\"/>\n        <a:font script=\"Jpan\" typeface=\"&#xFF2D;&#xFF33; &#xFF30;&#x30B4;&#x30B7;&#x30C3;&#x30AF;\"/>\n        <a:font script=\"Hang\" typeface=\"&#xB9D1;&#xC740; &#xACE0;&#xB515;\"/>\n        <a:font script=\"Hans\" typeface=\"&#x5B8B;&#x4F53;\"/>\n        <a:font script=\"Hant\" typeface=\"&#x65B0;&#x7D30;&#x660E;&#x9AD4;\"/>\n        <a:font script=\"Arab\" typeface=\"Arial\"/>\n        <a:font script=\"Hebr\" typeface=\"Arial\"/>\n        <a:font script=\"Thai\" typeface=\"Tahoma\"/>\n        <a:font script=\"Ethi\" typeface=\"Nyala\"/>\n        <a:font script=\"Beng\" typeface=\"Vrinda\"/>\n        <a:font script=\"Gujr\" typeface=\"Shruti\"/>\n        <a:font script=\"Khmr\" typeface=\"DaunPenh\"/>\n        <a:font script=\"Knda\" typeface=\"Tunga\"/>\n        <a:font script=\"Guru\" typeface=\"Raavi\"/>\n        <a:font script=\"Cans\" typeface=\"Euphemia\"/>\n        <a:font script=\"Cher\" typeface=\"Plantagenet Cherokee\"/>\n        <a:font script=\"Yiii\" typeface=\"Microsoft Yi Baiti\"/>\n        <a:font script=\"Tibt\" typeface=\"Microsoft Himalaya\"/>\n        <a:font script=\"Thaa\" typeface=\"MV Boli\"/>\n        <a:font script=\"Deva\" typeface=\"Mangal\"/>\n        <a:font script=\"Telu\" typeface=\"Gautami\"/>\n        <a:font script=\"Taml\" typeface=\"Latha\"/>\n        <a:font script=\"Syrc\" typeface=\"Estrangelo Edessa\"/>\n        <a:font script=\"Orya\" typeface=\"Kalinga\"/>\n        <a:font script=\"Mlym\" typeface=\"Kartika\"/>\n        <a:font script=\"Laoo\" typeface=\"DokChampa\"/>\n        <a:font script=\"Sinh\" typeface=\"Iskoola Pota\"/>\n        <a:font script=\"Mong\" typeface=\"Mongolian Baiti\"/>\n        <a:font script=\"Viet\" typeface=\"Arial\"/>\n        <a:font script=\"Uigh\" typeface=\"Microsoft Uighur\"/>\n      </a:minorFont>\n    </a:fontScheme>\n    <a:fmtScheme name=\"Office\">\n      <a:fillStyleLst>\n        <a:solidFill>\n          <a:schemeClr val=\"phClr\"/>\n        </a:solidFill>\n        <a:gradFill rotWithShape=\"1\">\n          <a:gsLst>\n            <a:gs pos=\"0\">\n              <a:schemeClr val=\"phClr\">\n                <a:tint val=\"50000\"/>\n                <a:satMod val=\"300000\"/>\n              </a:schemeClr>\n            </a:gs>\n            <a:gs pos=\"35000\">\n              <a:schemeClr val=\"phClr\">\n                <a:tint val=\"37000\"/>\n                <a:satMod val=\"300000\"/>\n              </a:schemeClr>\n            </a:gs>\n            <a:gs pos=\"100000\">\n              <a:schemeClr val=\"phClr\">\n                <a:tint val=\"15000\"/>\n                <a:satMod val=\"350000\"/>\n              </a:schemeClr>\n            </a:gs>\n          </a:gsLst>\n          <a:lin ang=\"16200000\" scaled=\"1\"/>\n        </a:gradFill>\n        <a:gradFill rotWithShape=\"1\">\n          <a:gsLst>\n            <a:gs pos=\"0\">\n              <a:schemeClr val=\"phClr\">\n                <a:shade val=\"51000\"/>\n                <a:satMod val=\"130000\"/>\n              </a:schemeClr>\n            </a:gs>\n            <a:gs pos=\"80000\">\n              <a:schemeClr val=\"phClr\">\n                <a:shade val=\"93000\"/>\n                <a:satMod val=\"130000\"/>\n              </a:schemeClr>\n            </a:gs>\n            <a:gs pos=\"100000\">\n              <a:schemeClr val=\"phClr\">\n                <a:shade val=\"94000\"/>\n                <a:satMod val=\"135000\"/>\n              </a:schemeClr>\n            </a:gs>\n          </a:gsLst>\n          <a:lin ang=\"16200000\" scaled=\"0\"/>\n        </a:gradFill>\n      </a:fillStyleLst>\n      <a:lnStyleLst>\n        <a:ln w=\"9525\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\">\n          <a:solidFill>\n            <a:schemeClr val=\"phClr\">\n              <a:shade val=\"95000\"/>\n              <a:satMod val=\"105000\"/>\n            </a:schemeClr>\n          </a:solidFill>\n          <a:prstDash val=\"solid\"/>\n        </a:ln>\n        <a:ln w=\"25400\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\">\n          <a:solidFill>\n            <a:schemeClr val=\"phClr\"/>\n          </a:solidFill>\n          <a:prstDash val=\"solid\"/>\n        </a:ln>\n        <a:ln w=\"38100\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\">\n          <a:solidFill>\n            <a:schemeClr val=\"phClr\"/>\n          </a:solidFill>\n          <a:prstDash val=\"solid\"/>\n        </a:ln>\n      </a:lnStyleLst>\n      <a:effectStyleLst>\n        <a:effectStyle>\n          <a:effectLst>\n            <a:outerShdw blurRad=\"40000\" dist=\"20000\" dir=\"5400000\" rotWithShape=\"0\">\n              <a:srgbClr val=\"000000\">\n                <a:alpha val=\"38000\"/>\n              </a:srgbClr>\n            </a:outerShdw>\n          </a:effectLst>\n        </a:effectStyle>\n        <a:effectStyle>\n          <a:effectLst>\n            <a:outerShdw blurRad=\"40000\" dist=\"23000\" dir=\"5400000\" rotWithShape=\"0\">\n              <a:srgbClr val=\"000000\">\n                <a:alpha val=\"35000\"/>\n              </a:srgbClr>\n            </a:outerShdw>\n          </a:effectLst>\n        </a:effectStyle>\n        <a:effectStyle>\n          <a:effectLst>\n            <a:outerShdw blurRad=\"40000\" dist=\"23000\" dir=\"5400000\" rotWithShape=\"0\">\n              <a:srgbClr val=\"000000\">\n                <a:alpha val=\"35000\"/>\n              </a:srgbClr>\n            </a:outerShdw>\n          </a:effectLst>\n          <a:scene3d>\n            <a:camera prst=\"orthographicFront\">\n              <a:rot lat=\"0\" lon=\"0\" rev=\"0\"/>\n            </a:camera>\n            <a:lightRig rig=\"threePt\" dir=\"t\">\n              <a:rot lat=\"0\" lon=\"0\" rev=\"1200000\"/>\n            </a:lightRig>\n          </a:scene3d>\n          <a:sp3d>\n            <a:bevelT w=\"63500\" h=\"25400\"/>\n          </a:sp3d>\n        </a:effectStyle>\n      </a:effectStyleLst>\n      <a:bgFillStyleLst>\n        <a:solidFill>\n          <a:schemeClr val=\"phClr\"/>\n        </a:solidFill>\n        <a:gradFill rotWithShape=\"1\">\n          <a:gsLst>\n            <a:gs pos=\"0\">\n              <a:schemeClr val=\"phClr\">\n                <a:tint val=\"40000\"/>\n                <a:satMod val=\"350000\"/>\n              </a:schemeClr>\n            </a:gs>\n            <a:gs pos=\"40000\">\n              <a:schemeClr val=\"phClr\">\n                <a:tint val=\"45000\"/>\n                <a:shade val=\"99000\"/>\n                <a:satMod val=\"350000\"/>\n              </a:schemeClr>\n            </a:gs>\n            <a:gs pos=\"100000\">\n              <a:schemeClr val=\"phClr\">\n                <a:shade val=\"20000\"/>\n                <a:satMod val=\"255000\"/>\n              </a:schemeClr>\n            </a:gs>\n          </a:gsLst>\n          <a:path path=\"circle\">\n            <a:fillToRect l=\"50000\" t=\"-80000\" r=\"50000\" b=\"180000\"/>\n          </a:path>\n        </a:gradFill>\n        <a:gradFill rotWithShape=\"1\">\n          <a:gsLst>\n            <a:gs pos=\"0\">\n              <a:schemeClr val=\"phClr\">\n                <a:tint val=\"80000\"/>\n                <a:satMod val=\"300000\"/>\n              </a:schemeClr>\n            </a:gs>\n            <a:gs pos=\"100000\">\n              <a:schemeClr val=\"phClr\">\n                <a:shade val=\"30000\"/>\n                <a:satMod val=\"200000\"/>\n              </a:schemeClr>\n            </a:gs>\n          </a:gsLst>\n          <a:path path=\"circle\">\n            <a:fillToRect l=\"50000\" t=\"50000\" r=\"50000\" b=\"50000\"/>\n          </a:path>\n        </a:gradFill>\n      </a:bgFillStyleLst>\n    </a:fmtScheme>\n  </a:themeElements>\n  <a:objectDefaults/>\n  <a:extraClrSchemeLst/>\n</a:theme>\n", "xl/styles.xml": "<styleSheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><numFmts count=\"0\"/><fonts count=\"2\"><font><name val=\"Calibri\"/><family val=\"2\"/><color theme=\"1\"/><sz val=\"11\"/><scheme val=\"minor\"/></font><font><b val=\"1\"/></font></fonts><fills count=\"2\"><fill><patternFill/></fill><fill><patternFill patternType=\"gray125\"/></fill></fills><borders count=\"1\"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count=\"1\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\"/></cellStyleXfs><cellXfs count=\"2\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"/><xf numFmtId=\"0\" fontId=\"1\" fillId=\"0\" borderId=\"0\" applyAlignment=\"1\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"><alignment horizontal=\"center\"/></xf></cellXfs><cellStyles count=\"1\"><cellStyle name=\"Normal\" xfId=\"0\" builtinId=\"0\" hidden=\"0\"/></cellStyles><tableStyles count=\"0\" defaultTableStyle=\"TableStyleMedium9\" defaultPivotStyle=\"PivotStyleLight16\"/><colors><indexedColors><rgbColor rgb=\"00000000\"/><rgbColor rgb=\"00FFFFFF\"/><rgbColor rgb=\"00FF0000\"/><rgbColor rgb=\"0000FF00\"/><rgbColor rgb=\"000000FF\"/><rgbColor rgb=\"00FFFF00\"/><rgbColor rgb=\"00FF00FF\"/><rgbColor rgb=\"0000FFFF\"/><rgbColor rgb=\"00000000\"/><rgbColor rgb=\"00FFFFFF\"/><rgbColor rgb=\"00FF0000\"/><rgbColor rgb=\"0000FF00\"/><rgbColor rgb=\"000000FF\"/><rgbColor rgb=\"00FFFF00\"/><rgbColor rgb=\"00FF00FF\"/><rgbColor rgb=\"0000FFFF\"/><rgbColor rgb=\"00800000\"/><rgbColor rgb=\"00008000\"/><rgbColor rgb=\"00000080\"/><rgbColor rgb=\"00808000\"/><rgbColor rgb=\"00800080\"/><rgbColor rgb=\"00008080\"/><rgbColor rgb=\"00C0C0C0\"/><rgbColor rgb=\"00808080\"/><rgbColor rgb=\"009999FF\"/><rgbColor rgb=\"00993366\"/><rgbColor rgb=\"00FFFFCC\"/><rgbColor rgb=\"00CCFFFF\"/><rgbColor rgb=\"00660066\"/><rgbColor rgb=\"00FF8080\"/><rgbColor rgb=\"000066CC\"/><rgbColor rgb=\"00CCCCFF\"/><rgbColor rgb=\"00000080\"/><rgbColor rgb=\"00FF00FF\"/><rgbColor rgb=\"00FFFF00\"/><rgbColor rgb=\"0000FFFF\"/><rgbColor rgb=\"00800080\"/><rgbColor rgb=\"00800000\"/><rgbColor rgb=\"00008080\"/><rgbColor rgb=\"000000FF\"/><rgbColor rgb=\"0000CCFF\"/><rgbColor rgb=\"00CCFFFF\"/><rgbColor rgb=\"00CCFFCC\"/><rgbColor rgb=\"00FFFF99\"/><rgbColor rgb=\"0099CCFF\"/><rgbColor rgb=\"00FF99CC\"/><rgbColor rgb=\"00CC99FF\"/><rgbColor rgb=\"00FFCC99\"/><rgbColor rgb=\"003366FF\"/><rgbColor rgb=\"0033CCCC\"/><rgbColor rgb=\"0099CC00\"/><rgbColor rgb=\"00FFCC00\"/><rgbColor rgb=\"00FF9900\"/><rgbColor rgb=\"00FF6600\"/><rgbColor rgb=\"00666699\"/><rgbColor rgb=\"00969696\"/><rgbColor rgb=\"00003366\"/><rgbColor rgb=\"00339966\"/><rgbColor rgb=\"00003300\"/><rgbColor rgb=\"00333300\"/><rgbColor rgb=\"00993300\"/><rgbColor rgb=\"00993366\"/><rgbColor rgb=\"00333399\"/><rgbColor rgb=\"00333333\"/></indexedColors></colors></styleSheet>", "_rels/.rels": "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\" Id=\"rId1\"/><Relationship Type=\"http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties\" Target=\"docProps/core.xml\" Id=\"rId2\"/><Relationship Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties\" Target=\"docProps/app.xml\" Id=\"rId3\"/></Relationships>", "xl/workbook.xml": "<workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><workbookPr/><workbookProtection/><bookViews><workbookView visibility=\"visible\" minimized=\"0\" showHorizontalScroll=\"1\" showVerticalScroll=\"1\" showSheetTabs=\"1\" tabRatio=\"600\" firstSheet=\"0\" activeTab=\"0\" autoFilterDateGrouping=\"1\"/></bookViews><sheets><sheet xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" name=\"Question Bank\" sheetId=\"1\" state=\"visible\" r:id=\"rId1\"/></sheets><definedNames><definedName name=\"_xlnm._FilterDatabase\" localSheetId=\"0\" hidden=\"1\">'Question Bank'!$A$1:$H$101</definedName></definedNames><calcPr calcId=\"124519\" fullCalcOnLoad=\"1\"/></workbook>", "xl/_rels/workbook.xml.rels": "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"/xl/worksheets/sheet1.xml\" Id=\"rId1\"/><Relationship Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles\" Target=\"styles.xml\" Id=\"rId2\"/><Relationship Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme\" Target=\"theme/theme1.xml\" Id=\"rId3\"/></Relationships>", "[Content_Types].xml": "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/><Default Extension=\"xml\" ContentType=\"application/xml\"/><Override PartName=\"/xl/styles.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml\"/><Override PartName=\"/xl/theme/theme1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.theme+xml\"/><Override PartName=\"/docProps/core.xml\" ContentType=\"application/vnd.openxmlformats-package.core-properties+xml\"/><Override PartName=\"/docProps/app.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.extended-properties+xml\"/><Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/></Types>"};
+
+function u8(s){ return new TextEncoder().encode(s); }
+function crc32(bytes){
+  let c=0xffffffff;
+  for(let i=0;i<bytes.length;i++){
+    c ^= bytes[i];
+    for(let k=0;k<8;k++) c=(c>>>1)^((c&1)?0xedb88320:0);
+  }
+  return (c^0xffffffff)>>>0;
+}
+function le16(n){ return new Uint8Array([n&255,(n>>>8)&255]); }
+function le32(n){ return new Uint8Array([n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255]); }
+function concatBytes(parts){
+  let total=parts.reduce((n,p)=>n+p.length,0), out=new Uint8Array(total), off=0;
+  for(const p of parts){ out.set(p,off); off+=p.length; }
+  return out;
+}
+function zipStore(entries){
+  const local=[], central=[];
+  let offset=0;
+  for(const e of entries){
+    const name=u8(e.name), data=u8(e.data), crc=crc32(data);
+    const lh=concatBytes([
+      new Uint8Array([0x50,0x4b,0x03,0x04]), le16(20), le16(0), le16(0),
+      le16(0), le16(0), le32(crc), le32(data.length), le32(data.length),
+      le16(name.length), le16(0), name, data
+    ]);
+    local.push(lh);
+    const ch=concatBytes([
+      new Uint8Array([0x50,0x4b,0x01,0x02]), le16(20), le16(20), le16(0), le16(0),
+      le16(0), le16(0), le32(crc), le32(data.length), le32(data.length),
+      le16(name.length), le16(0), le16(0), le16(0), le16(0), le32(0), le32(offset),
+      name
+    ]);
+    central.push(ch);
+    offset += lh.length;
+  }
+  const cd=concatBytes(central), body=concatBytes(local);
+  const end=concatBytes([
+    new Uint8Array([0x50,0x4b,0x05,0x06]), le16(0),le16(0),
+    le16(entries.length),le16(entries.length),le32(cd.length),le32(body.length),
+    le16(0)
+  ]);
+  return concatBytes([body,cd,end]);
+}
+
+
+document.getElementById('download').onclick=function(){
+  const data=load();
+  if(!data.length){
+    alert('कोई Selected Question नहीं है।');
+    return;
+  }
+
+  function xml(v){
+    return String(v==null?'':v)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+      .replace(/'/g,'&apos;');
+  }
+
+  const keys=['q','a','b','c','d','ans'];
+  const rows=data.map((r,i)=>{
+    const ansText=r.ans||'';
+    const ansLetter=(ansText==='A'||ansText==='B'||ansText==='C'||ansText==='D')
+      ? ansText
+      : (String(ansText).match(/^([ABCD])(?:[.)]|$)/i)||[])[1]?.toUpperCase() || '';
+    const vals=[r.q||'',r.a||'',r.b||'',r.c||'',r.d||'',ansText,ansLetter];
+    const cells=vals.map((v,j)=>{
+      const ref=String.fromCharCode(65+j)+(i+1);
+      return '<c r="'+ref+'" t="inlineStr"><is><t xml:space="preserve">'+xml(v)+'</t></is></c>';
+    }).join('');
+    return '<row r="'+(i+1)+'">'+cells+'</row>';
+  }).join('');
+
+  const sheet = "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">\n<sheetPr><outlinePr summaryBelow=\"1\" summaryRight=\"1\"/><pageSetUpPr/></sheetPr>\n<dimension ref=\"A1:G1\"/>\n<sheetViews><sheetView workbookViewId=\"0\"/></sheetViews>\n<sheetFormatPr baseColWidth=\"8\" defaultRowHeight=\"15\"/>\n<cols>\n<col width=\"55\" customWidth=\"1\" min=\"1\" max=\"1\"/>\n<col width=\"30\" customWidth=\"1\" min=\"2\" max=\"5\"/>\n<col width=\"22\" customWidth=\"1\" min=\"6\" max=\"7\"/>\n</cols>\n<sheetData>\n__ROWS__\n</sheetData>\n</worksheet>".replace('__ROWS__',rows)
+    .replace('A1:G1','A1:G'+data.length)
+
+  const entries=[];
+  Object.keys(XLSX_TEMPLATE_FILES).forEach(name=>entries.push({name:name,data:XLSX_TEMPLATE_FILES[name]}));
+  entries.push({name:'xl/worksheets/sheet1.xml',data:sheet});
+
+  const bytes=zipStore(entries);
+  const blob=new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='Selected_Questions.xlsx';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1500);
+};
+
+</script></body></html>

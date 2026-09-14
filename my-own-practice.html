@@ -77,7 +77,15 @@ async function unzip(f){let a=new Uint8Array(await f.arrayBuffer()),v=new DataVi
 while(p+30<a.length){if(u32(p)!=0x04034b50)break;let meth=u16(p+8),cs=u32(p+18),nl=u16(p+26),el=u16(p+28),name=new TextDecoder().decode(a.slice(p+30,p+30+nl)),d=a.slice(p+30+nl+el,p+30+nl+el+cs);o[name]=meth==0?d:await new Response(new Blob([d]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();if(meth!=0)o[name]=new Uint8Array(o[name]);p+=30+nl+el+cs}return o}
 function xml(x){return new DOMParser().parseFromString(x,'application/xml')}
 async function load(f){try{status.textContent='Excel पढ़ा जा रहा है...';let z=await unzip(f),shared=[];if(z['xl/sharedStrings.xml'])xml(new TextDecoder().decode(z['xl/sharedStrings.xml'])).querySelectorAll('si').forEach(x=>shared.push([...x.querySelectorAll('t')].map(y=>y.textContent).join('')));
-let d=xml(new TextDecoder().decode(z['xl/worksheets/sheet1.xml']));rows=[];d.querySelectorAll('sheetData>row').forEach(r=>{let a=[];r.querySelectorAll(':scope>c').forEach(c=>{let m=(c.getAttribute('r')||'').match(/[A-Z]+/);if(!m)return;let col=0;for(let ch of m[0])col=col*26+ch.charCodeAt(0)-64;col--;while(a.length<=col)a.push('');let val=c.querySelector('v')?.textContent||'';if(c.getAttribute('t')==='s')val=shared[+val]||'';if(c.getAttribute('t')==='inlineStr')val=[...c.querySelectorAll('t')].map(x=>x.textContent).join('');a[col]=val});if(a.some(x=>String(x).trim()))rows.push(a)});status.textContent=rows.length+' प्रश्न लोड हुए।';
+let d=xml(new TextDecoder().decode(z['xl/worksheets/sheet1.xml']));rows=[];d.querySelectorAll('sheetData>row').forEach(r=>{let a=[];r.querySelectorAll(':scope>c').forEach(c=>{let m=(c.getAttribute('r')||'').match(/[A-Z]+/);if(!m)return;let col=0;for(let ch of m[0])col=col*26+ch.charCodeAt(0)-64;col--;while(a.length<=col)a.push('');let val=c.querySelector('v')?.textContent||'';if(c.getAttribute('t')==='s')val=shared[+val]||'';if(c.getAttribute('t')==='inlineStr')val=[...c.querySelectorAll('t')].map(x=>x.textContent).join('');a[col]=val});if(a.some(x=>String(x).trim()))rows.push(a)});
+/* Excel की पहली row headings होती है: Question, Option A, Option B...
+   उसे question न मानें; असली पहला question row 2 से शुरू होता है. */
+if(rows.length){
+  const h=rows[0].map(x=>String(x||'').trim().toLowerCase());
+  const isHeader=(h[0]==='question' && h[1]==='option a' && h[2]==='option b' && h[3]==='option c' && h[4]==='option d');
+  if(isHeader) rows.shift();
+}
+status.textContent=rows.length+' प्रश्न लोड हुए।';
 window.YOP30_CONTACT_DONE=false;
 window.YOP30_SUB_UNLOCKED=false;
 window.YOP30_PENDING_INDEX=10;
