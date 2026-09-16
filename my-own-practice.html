@@ -29,8 +29,9 @@ html{font-size:16px}*{box-sizing:border-box}img{max-width:100%;height:auto}body{
     </div>
     <div style="border-left:2px solid #d5e3f7;padding-left:20px;font-size:13px;line-height:1.8;">
       <div>📍 <strong>NOKHA MILL, ITARHI ROAD, BUXAR</strong></div>
-      <div>📧 <strong>practicehipractice@gmail.com</strong></div>
-      <div>📱 <strong>7277446690</strong></div>
+      <div>Mail to : <strong>practicehipractice@gmail.com</strong></div>
+      <div>YouTube : <strong>T&amp;T@teachtestyourself</strong></div>
+      <div>Contact : <strong>7277446690</strong></div>
       <div style="margin-top:7px;font-weight:700;">🎯 अपना Custom MCQ Set बनवाएँ</div>
       <div>Excel Format में अपना Set बनवाने के लिए ईमेल करें।</div>
     </div>
@@ -158,7 +159,7 @@ function gateIndex(n){
 }
 function next(){let n=i+1;if(n<rows.length && gateIndex(n))return;if(i<rows.length-1){i++;render()}}function skip(){let n=i+1;if(n<rows.length && gateIndex(n))return;if(mode==='study'){let st=getState();if(!st.checked)st.palStatus='skip'}else if(mode==='test'){let st=getState();if(!st.selected&&!st.checked)st.palStatus='skip'}if(i<rows.length-1){i++;render()}}function prev(){if(i>0){i--;render()}}
 
-</script><style id="test-result-style">.test-result{background:transparent;border:0;padding:0;margin:0;font-weight:700;line-height:1.45}.test-result .ok{font-weight:800}.test-result .minus{font-weight:800}.pal .test-correct,.pal .test-answered{background:#22984b!important;color:#fff!important}.pal .test-wrong{background:#d33!important;color:#fff!important}.pal .test-skip{background:#222!important;color:#fff!important}.pal .test-unsolved{background:#9aa4b2!important;color:#fff!important}</style><script id="real-timer-script">(function(){
+</script><style id="test-finished-result-style">body.test-finished #php-test-timer-wrap{display:flex!important}</style><style id="test-result-style">.test-result{background:transparent;border:0;padding:0;margin:0;font-weight:700;line-height:1.45}.test-result .ok{font-weight:800}.test-result .minus{font-weight:800}.pal .test-correct,.pal .test-answered{background:#22984b!important;color:#fff!important}.pal .test-wrong{background:#d33!important;color:#fff!important}.pal .test-skip{background:#222!important;color:#fff!important}.pal .test-unsolved{background:#9aa4b2!important;color:#fff!important}</style><script id="real-timer-script">(function(){
 let timerId=null,remaining=0,running=false,questionTimer=false,expired=false,startValue=0;
 const $=s=>document.querySelector(s);
 function count(){return (typeof rows!=="undefined"&&Array.isArray(rows)&&rows.length)?rows.length:100}
